@@ -1,0 +1,112 @@
+OggettoMinecraft
+├── Item
+│   ├── Weapon
+│   └── Food
+└── Block
+    ├── OreBlock
+    └── DecorativeBlock
+
+//------------------------------------------------------------------------------------------
+
+class OggettoMinecraft {
+protected:
+    std::string nome;
+    std::string rarità;
+    float peso;
+
+public:
+    OggettoMinecraft(const std::string& nome, const std::string& rarità, float peso);
+    virtual ~OggettoMinecraft() = default;
+
+    virtual std::string getInfo() const = 0; // Polimorfico
+    virtual void accept(OggettoVisitor& visitor) const = 0;
+
+    std::string getNome() const;
+    std::string getRarità() const;
+    float getPeso() const;
+};
+
+//------------------------------------------------------------------------------------------
+
+class Item : public OggettoMinecraft {
+protected:
+    int durabilità;
+    bool stackable;
+
+public:
+    Item(const std::string& nome, const std::string& rarità, float peso, int durabilità, bool stackable);
+    ~Item() override = default;
+
+    int getDurabilità() const;
+    bool isStackable() const;
+    std::string getInfo() const override;
+    void accept(OggettoVisitor& visitor) const override;
+};
+
+
+//------------------------------------------------------------------------------------------
+
+class Block : public OggettoMinecraft {
+protected:
+    std::string materiale;
+    float durezza;
+
+public:
+    Block(const std::string& nome, const std::string& rarità, float peso, const std::string& materiale, float durezza);
+    ~Block() override = default;
+
+    std::string getMateriale() const;
+    float getDurezza() const;
+    std::string getInfo() const override;
+    void accept(OggettoVisitor& visitor) const override;
+};
+
+//------------------------------------------------------------------------------------------
+
+class Weapon : public Item {
+    int danno;
+    std::string tipo;
+
+public:
+    Weapon(const std::string& nome, const std::string& rarità, float peso, int durabilità, bool stackable, int danno, const std::string& tipo);
+    std::string getInfo() const override;
+    void accept(OggettoVisitor& visitor) const override;
+};
+
+//------------------------------------------------------------------------------------------
+
+class Food : public Item {
+    int nutrizione;
+    float saturazione;
+
+public:
+    Food(const std::string& nome, const std::string& rarità, float peso, int durabilità, bool stackable, int nutrizione, float saturazione);
+    std::string getInfo() const override;
+    void accept(OggettoVisitor& visitor) const override;
+};
+
+//------------------------------------------------------------------------------------------
+
+class OreBlock : public Block {
+    std::string contenuto;
+    int quantità;
+
+public:
+    OreBlock(const std::string& nome, const std::string& rarità, float peso, const std::string& materiale, float durezza, const std::string& contenuto, int quantità);
+    std::string getInfo() const override;
+    void accept(OggettoVisitor& visitor) const override;
+};
+
+//------------------------------------------------------------------------------------------
+
+class DecorativeBlock : public Block {
+    std::string colore;
+    int luminosità;
+
+public:
+    DecorativeBlock(const std::string& nome, const std::string& rarità, float peso, const std::string& materiale, float durezza, const std::string& colore, int luminosità);
+    std::string getInfo() const override;
+    void accept(OggettoVisitor& visitor) const override;
+};
+
+//------------------------------------------------------------------------------------------
