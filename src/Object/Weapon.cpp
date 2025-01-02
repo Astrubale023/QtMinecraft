@@ -18,3 +18,7 @@ void Weapon::setDamage(int newDamage) {
 void Weapon::setMaterial(const Material& newMaterial) {
     material = newMaterial;
 }
+
+void Weapon::accept(MinecraftObjVisitor& visitor) {
+    visitor.visit(*this);
+}

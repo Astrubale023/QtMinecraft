@@ -26,3 +26,7 @@ void OreBlock::setMaxDrop(int newMaxDrop) {
 void OreBlock::setMinDrop(int newMinDrop) {
     minDrop = newMinDrop;
 }
+
+void OreBlock::accept(MinecraftObjVisitor& visitor) {
+    visitor.visit(*this);
+}

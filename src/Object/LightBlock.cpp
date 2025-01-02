@@ -18,3 +18,22 @@ void LightBlock::setLightColor(LightColor newLightColor) {
 void LightBlock::setBrightness(float newBrightness) {
     brightness = newBrightness;
 }
+
+std::string colorToString(LightColor lightColor) {
+    switch (lightColor) {
+        case LightColor::RED:
+            return "Red";
+        case LightColor::BLUE:
+            return "Blue";
+        case LightColor::YELLOW:
+            return "Yellow";
+        case LightColor::GREEN:
+            return "Green";
+        default:
+            return "Sconosciuto";
+    }
+}
+
+void LightBlock::accept(MinecraftObjVisitor& visitor) {
+    visitor.visit(*this);
+}

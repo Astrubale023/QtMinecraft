@@ -20,3 +20,7 @@ void Block::setHardness(float newHardness) {
     }
     hardness = newHardness;
 }
+
+void Block::accept(MinecraftObjVisitor& visitor) {
+    visitor.visit(*this);
+}

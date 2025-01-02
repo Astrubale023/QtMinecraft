@@ -13,3 +13,7 @@ bool Item::isStackable() const {
 void Item::setStackable(bool newStackable) {
     stackable = newStackable;
 }
+
+void Item::accept(MinecraftObjVisitor& visitor) {
+    visitor.visit(*this);
+}

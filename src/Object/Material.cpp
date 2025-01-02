@@ -11,10 +11,10 @@ Rarity Material::getRarita() const {
 }
 
 std::string Material::getRaritaString() const {
-    return raritaToString(rarity);
+    return rarityToString(rarity);
 }
 
-std::string Material::raritaToString(Rarity rarity) {
+std::string Material::rarityToString(Rarity rarity) {
     switch (rarity) {
         case Rarity::COMMON:
             return "Common";
@@ -27,4 +27,8 @@ std::string Material::raritaToString(Rarity rarity) {
         default:
             return "Sconosciuto";
     }
+}
+
+void Material::accept(MinecraftObjVisitor& visitor) {
+    visitor.visit(*this);
 }

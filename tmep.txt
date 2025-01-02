@@ -7,106 +7,56 @@ OggettoMinecraft
     └── DecorativeBlock
 
 //------------------------------------------------------------------------------------------
+#ifndef JSONDESERIALIZER_H
+#define JSONDESERIALIZER_H
 
-class OggettoMinecraft {
-protected:
-    std::string nome;
-    std::string rarità;
-    float peso;
+#include <memory>
+#include <QJsonObject>
+#include "MinecraftObj.h"
+#include "Item.h"
+#include "Block.h"
+#include "OreBlock.h"
+#include "LightBlock.h"
 
+class JsonDeserializer {
 public:
-    OggettoMinecraft(const std::string& nome, const std::string& rarità, float peso);
-    virtual ~OggettoMinecraft() = default;
+    static std::unique_ptr<MinecraftObj> deserialize(const QJsonObject& json) {
+        QString type = json["type"].toString();
 
-    virtual std::string getInfo() const = 0; // Polimorfico
-    virtual void accept(OggettoVisitor& visitor) const = 0;
+        if (type == "Item") {
+            return std::make_unique<Item>(
+                json["name"].toString().toStdString(),
+                json["stackable"].toBool()
+            );
+        } else if (type == "Block") {
+            return std::make_unique<Block>(
+                json["name"].toString().toStdString(),
+                json["hardness"].toDouble()
+            );
+        } else if (type == "OreBlock") {
+            Material material(
+                json["material"].toString().toStdString(),
+                false, // placeholder per stackable, da JSON
+                Rarity::COMMON // placeholder, puoi aggiungere la gestione delle rarity
+            );
+            return std::make_unique<OreBlock>(
+                json["name"].toString().toStdString(),
+                json["hardness"].toDouble(),
+                material,
+                json["minDrop"].toInt(),
+                json["maxDrop"].toInt()
+            );
+        } else if (type == "LightBlock") {
+            return std::make_unique<LightBlock>(
+                json["name"].toString().toStdString(),
+                json["hardness"].toDouble(),
+                static_cast<LightType>(json["lightType"].toInt()),
+                json["brightness"].toDouble()
+            );
+        }
 
-    std::string getNome() const;
-    std::string getRarità() const;
-    float getPeso() const;
+        throw std::invalid_argument("Tipo sconosciuto: " + type.toStdString());
+    }
 };
 
-//------------------------------------------------------------------------------------------
-
-class Item : public OggettoMinecraft {
-protected:
-    int durabilità;
-    bool stackable;
-
-public:
-    Item(const std::string& nome, const std::string& rarità, float peso, int durabilità, bool stackable);
-    ~Item() override = default;
-
-    int getDurabilità() const;
-    bool isStackable() const;
-    std::string getInfo() const override;
-    void accept(OggettoVisitor& visitor) const override;
-};
-
-
-//------------------------------------------------------------------------------------------
-
-class Block : public OggettoMinecraft {
-protected:
-    std::string materiale;
-    float durezza;
-
-public:
-    Block(const std::string& nome, const std::string& rarità, float peso, const std::string& materiale, float durezza);
-    ~Block() override = default;
-
-    std::string getMateriale() const;
-    float getDurezza() const;
-    std::string getInfo() const override;
-    void accept(OggettoVisitor& visitor) const override;
-};
-
-//------------------------------------------------------------------------------------------
-
-class Weapon : public Item {
-    int danno;
-    std::string tipo;
-
-public:
-    Weapon(const std::string& nome, const std::string& rarità, float peso, int durabilità, bool stackable, int danno, const std::string& tipo);
-    std::string getInfo() const override;
-    void accept(OggettoVisitor& visitor) const override;
-};
-
-//------------------------------------------------------------------------------------------
-
-class Food : public Item {
-    int nutrizione;
-    float saturazione;
-
-public:
-    Food(const std::string& nome, const std::string& rarità, float peso, int durabilità, bool stackable, int nutrizione, float saturazione);
-    std::string getInfo() const override;
-    void accept(OggettoVisitor& visitor) const override;
-};
-
-//------------------------------------------------------------------------------------------
-
-class OreBlock : public Block {
-    std::string contenuto;
-    int quantità;
-
-public:
-    OreBlock(const std::string& nome, const std::string& rarità, float peso, const std::string& materiale, float durezza, const std::string& contenuto, int quantità);
-    std::string getInfo() const override;
-    void accept(OggettoVisitor& visitor) const override;
-};
-
-//------------------------------------------------------------------------------------------
-
-class DecorativeBlock : public Block {
-    std::string colore;
-    int luminosità;
-
-public:
-    DecorativeBlock(const std::string& nome, const std::string& rarità, float peso, const std::string& materiale, float durezza, const std::string& colore, int luminosità);
-    std::string getInfo() const override;
-    void accept(OggettoVisitor& visitor) const override;
-};
-
-//------------------------------------------------------------------------------------------
+#endif // JSONDESERIALIZER_H

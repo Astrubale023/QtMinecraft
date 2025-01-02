@@ -16,6 +16,8 @@ public:
 
     // Setter
     void setHardness(float newHardness);
+    
+    void accept(MinecraftObjVisitor& visitor) override;
 };
 
 #endif // BLOCK_H

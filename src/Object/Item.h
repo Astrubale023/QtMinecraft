@@ -16,6 +16,8 @@ public:
 
     // Setter
     void setStackable(bool newStackable);
+    
+    void accept(MinecraftObjVisitor& visitor) override;
 };
 
 #endif // ITEM_H

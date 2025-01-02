@@ -20,5 +20,7 @@ public:
     // Setter
     void setDamage(int damage);
     void setMaterial(const Material& newMaterial);
+    
+    void accept(MinecraftObjVisitor& visitor) override;
 };
 #endif // WEAPON_H

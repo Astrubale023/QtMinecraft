@@ -23,6 +23,8 @@ public:
     void setMaterial(const Material& newMaterial);
     void setMaxDrop(int newMaxDrop);
     void setMinDrop(int newMinDrop);
+    
+    void accept(MinecraftObjVisitor& visitor) override;
 };
 
 #endif // OREBLOCK_H

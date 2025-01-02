@@ -16,7 +16,7 @@ private:
     Rarity rarity;
     
     // Funzione per ottenere la rarità come stringa
-    static std::string raritaToString(Rarity rarita);
+    static std::string rarityToString(Rarity rarita);
 
 public:
     static const Material IRON;
@@ -28,6 +28,8 @@ public:
 
     Rarity getRarita() const;
     std::string getRaritaString() const;
+    
+    void accept(MinecraftObjVisitor& visitor) override;
 };
 
 #endif // MATERIAL_H
