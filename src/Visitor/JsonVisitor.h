@@ -9,6 +9,8 @@ private:
     QJsonObject jsonobject;
 
 public:
+    QJsonObject getJsonObject() {}
+
     void visit(const Item& item) override {}
     void visit(const Weapon& weapon) override {}
     void visit(const Material& material) override {}

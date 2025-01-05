@@ -19,7 +19,7 @@ void JsonHandler::saveObjectsToFile(const QString& filename, const QList<Minecra
     }
 }
 
-void loadObjectsFromFile(const QString& filename, QList<MinecraftObj*>& objects) {
+void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftObj*>& objects) {
     QFile file(filename);
     
     if (!file.open(QIODevice::ReadOnly)) {
