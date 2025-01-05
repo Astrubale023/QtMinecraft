@@ -6,7 +6,7 @@ void JsonHandler::saveObjectsToFile(const QString& filename, const QList<Minecra
 
     for (MinecraftObj* obj : objects) {
         obj->accept(visitor);  // Serializza l'oggetto
-        jsonArray.append(visitor.getJson());  // Aggiunge l'oggetto serializzato
+        jsonArray.append(visitor.getJsonObject());  // Aggiunge l'oggetto serializzato
     }
 
     QJsonDocument doc(jsonArray);

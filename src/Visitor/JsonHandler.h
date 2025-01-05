@@ -14,7 +14,6 @@
 #include "Item.h"
 #include "Block.h"
 #include "Material.h"
-#include "MaterialRepository.h"
 #include "JsonVisitor.h"
 
 class JsonHandler {
