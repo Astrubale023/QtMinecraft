@@ -62,7 +62,7 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
     for (const QJsonValue& value : jsonArray) {
         QJsonObject obj = value.toObject();
         QString type = obj["type"].toString();
-        QString type = obj["name"].toString();
+        QString name = obj["name"].toString();
 
         if (type == "Item") {
             // Se è un Item, lo ricostruiamo
@@ -97,7 +97,8 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
         else if (type == "Material") {
             // Se è un Material, lo ricostruiamo
             bool stackable = obj["stackable"].toBool();
-            Rarity rarity = Material::stringToRarity(obj["rarity"].toString().toStdString());  // Converte l'intero in un valore Rarity
+            std::string rarityString = obj["rarity"].toString().toStdString();
+            Rarity rarity = Material::stringToRarity(rarityString);  // Converte l'intero in un valore Rarity
             Material* material = new Material(name.toStdString(), stackable, rarity);
             objects.append(material);
         }
@@ -124,9 +125,11 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
                 }
             }
 
-            if (material != nullptr || material->getNome() == "Default") {
-                OreBlock* oreBlock = new OreBlock(name.toStdString(), hardness, minDrop, maxDrop, material);
-                objects.append(oreBlock);
+            if (material != nullptr) {
+                if(material->getNome() == "Default") {
+                    OreBlock* oreBlock = new OreBlock(name.toStdString(), hardness, minDrop, maxDrop, material);
+                    objects.append(oreBlock);
+                }
             } else {
                 OreBlock* oreBlock = new OreBlock(name.toStdString(), hardness, minDrop, maxDrop);
                 objects.append(oreBlock);
@@ -134,7 +137,8 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
         }
         else if (type == "LightBlock") {
             int hardness = obj["hardness"].toInt();
-            LightColor lightColor = LightBlock::stringToColor(obj["lightColor"].toString().toStdString());
+            std::string lightColorString = obj["lightColor"].toString().toStdString();
+            LightColor lightColor = LightBlock::stringToColor(lightColorString);
             float brightness = obj["brightness"].toDouble();
 
             LightBlock* lightBlock = new LightBlock(name.toStdString(), hardness, lightColor, brightness);
