@@ -8,7 +8,7 @@ private:
     bool stackable;
 
 public:
-    Item(const std::string& nome, bool stackable);
+    Item(const std::string& nome = "", bool stackable = false);
     ~Item() override = default;
 
     // Getter

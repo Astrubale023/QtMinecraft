@@ -1,7 +1,7 @@
 #include "Block.h"
 #include <stdexcept> // Per std::invalid_argument
 
-Block::Block(const std::string& nome, float hardness)
+Block::Block(const std::string& nome, int hardness)
     : MinecraftObj(nome), hardness(hardness) {
     if (hardness <= 0) {
         throw std::invalid_argument("La durezza deve essere maggiore di zero.");
@@ -9,12 +9,12 @@ Block::Block(const std::string& nome, float hardness)
 }
 
 // Getter
-float Block::getHardness() const {
+int Block::getHardness() const {
     return hardness;
 }
 
 // Setter
-void Block::setHardness(float newHardness) {
+void Block::setHardness(int newHardness) {
     if (newHardness <= 0) {
         throw std::invalid_argument("La durezza deve essere maggiore di zero.");
     }

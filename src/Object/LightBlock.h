@@ -17,9 +17,10 @@ private:
 
     // Funzione per ottenere la rarità come stringa
     static std::string colorToString(LightColor lightColor);
+    static LightColor stringToColor(string s);
 
-public:
-    LightBlock(const std::string& nome, float hardness, LightColor lightColor, float brightness);
+public: //GREEN solo perchè è l'unico colore non primario tra i 4
+    LightBlock(const std::string& nome = "", int hardness = 0, LightColor lightColor = LightColor::GREEN, float brightness = 0);
     ~LightBlock() override = default;
 
     // Getter

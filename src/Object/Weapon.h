@@ -10,8 +10,8 @@ private:
     int damage;
     Material* material;
 
-public:
-    Weapon(const std::string& nome, bool stackable, int damage, Material* material);
+public://qui const_cast perchè dereferenziondo DEFAULT_MAT mi da un puntatore a const e a noi conveniva così
+    Weapon(const std::string& nome = "", bool stackable=false, int damage = 0, Material* material = const_cast<Material*>(&Material::DEFAULT_MAT));
     ~Weapon() override = default;
 
     // Getter

@@ -6,21 +6,21 @@
 
 class OreBlock : public Block {
 private:
-    Material material;
+    Material* material;
     int maxDrop;
     int minDrop;
 
 public:
-    OreBlock(const std::string& nome, float hardness, const Material& material, int minDrop, int maxDrop);
+    OreBlock(const std::string& nome = "", int hardness = 0, int minDrop = 0, int maxDrop = 0, Material* material = const_cast<Material *>(&Material::DEFAULT_MAT));
     ~OreBlock() override = default;
 
     // Getter
-    Material getMaterial() const;
+    Material* getMaterial() const;
     int getMaxDrop() const;
     int getMinDrop() const;
 
     // Setter
-    void setMaterial(const Material& newMaterial);
+    void setMaterial(Material* newMaterial);
     void setMaxDrop(int newMaxDrop);
     void setMinDrop(int newMinDrop);
     

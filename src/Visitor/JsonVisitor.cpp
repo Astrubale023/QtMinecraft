@@ -11,23 +11,26 @@ void JsonVisitor::visit(const Item& item) override {
     tempJsonObject["stackable"] = item.isStackable();
     jsonobject = tempJsonObject;
 }
+
 void JsonVisitor::visit(const Weapon& weapon) override {
     QJsonObject tempJsonObject;
     tempJsonObject["type"] = "Weapon";
     tempJsonObject["name"] = QString::fromStdString(weapon.getNome());
     tempJsonObject["stackable"] = weapon.isStackable();
-    tempJsonObject["stackable"] = weapon.getDamage();
+    tempJsonObject["damage"] = weapon.getDamage();
     // salvare il materiale
-    tempJsonObject["material_name"] = weapon.getMaterialName();
-
+    if(weapon.getMaterial()) {
+        tempJsonObject["material_name"] = QString::fromStdString(weapon.getMaterial()->getNome());
+    }
     jsonobject = tempJsonObject;
 }
+
 void JsonVisitor::visit(const Material& material) override {
     QJsonObject tempJsonObject;
     tempJsonObject["type"] = "Material";
     tempJsonObject["name"] = QString::fromStdString(material.getNome());
     tempJsonObject["stackable"] = material.isStackable();
-    tempJsonObject["rariry"] = Material.rarityToString(material.getRarita());
+    tempJsonObject["rariry"] = QString::fromStdString(Material::rarityToString(material.getRarity()));
     
     jsonobject = tempJsonObject;
 }
@@ -40,25 +43,33 @@ void JsonVisitor::visit(const Block& block) override {
     
     jsonobject = tempJsonObject;
 }
+
 void JsonVisitor::visit(const OreBlock& oreBlock) override {
     QJsonObject tempJsonObject;
+
     tempJsonObject["type"] = "OreBlock";
     tempJsonObject["name"] = QString::fromStdString(oreBlock.getNome());
     tempJsonObject["hardness"] = oreBlock.getHardness();
     tempJsonObject["minDrop"] = oreBlock.getMinDrop();
     tempJsonObject["maxDrop"] = oreBlock.getMaxDrop();
 
-    tempJsonObject["materialName"] = oreBlock.getMaterial().getNome();  // sul read bisognerà accedere a una Qmap
-    
+    // Aggiunta del nome del materiale (verifichiamo che il materiale esista)
+    if (oreBlock.getMaterial() != nullptr) {
+        tempJsonObject["materialName"] = QString::fromStdString(oreBlock.getMaterial()->getNome());
+    } else {
+        tempJsonObject["materialName"] = "";  // Lascia vuoto se non c'è materiale
+    }
+
     jsonobject = tempJsonObject;
 }
+
 void JsonVisitor::visit(const LightBlock& lightBlock) override {
     QJsonObject tempJsonObject;
     tempJsonObject["type"] = "LightBlock";
     tempJsonObject["name"] = QString::fromStdString(lightBlock.getNome());
     tempJsonObject["hardness"] = lightBlock.getHardness();
     tempJsonObject["brightness"] = lightBlock.getBrightness();
-    tempJsonObject["lightColor"] = LightBlock.colorToString(lightBlock.getLightColor());
+    tempJsonObject["lightColor"] = QString::fromStdString(LightBlock::colorToString(lightBlock.getLightColor()));
     
     jsonobject = tempJsonObject;
 }

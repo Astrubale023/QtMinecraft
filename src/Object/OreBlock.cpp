@@ -1,9 +1,9 @@
 #include "OreBlock.h"
 
-OreBlock::OreBlock(const std::string& nome, float hardness, const Material& material, int minDrop, int maxDrop)
-    : Block(nome, hardness), material(material), minDrop(minDrop), maxDrop(maxDrop) {}
+OreBlock::OreBlock(const std::string& nome, int hardness, int minDrop, int maxDrop, Material* material)
+    : Block(nome, hardness), minDrop(minDrop), maxDrop(maxDrop), material(material) {}
 
-Material OreBlock::getMaterial() const {
+Material* OreBlock::getMaterial() const {
     return material;
 }
 
@@ -15,7 +15,7 @@ int OreBlock::getMinDrop() const {
     return minDrop;
 }
 
-void OreBlock::setMaterial(const Material& newMaterial) {
+void OreBlock::setMaterial(Material* newMaterial) {
     material = newMaterial;
 }
 

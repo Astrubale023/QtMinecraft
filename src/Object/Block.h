@@ -5,17 +5,17 @@
 
 class Block : public MinecraftObj {
 private:
-    float hardness;
+    int hardness;
 
 public:
-    Block(const std::string& nome, float hardness);
+    Block(const std::string& nome = "", int hardness = 0);
     ~Block() override = default;
 
     // Getter
-    float getHardness() const;
+    int getHardness() const;
 
     // Setter
-    void setHardness(float newHardness);
+    void setHardness(int newHardness);
     
     void accept(MinecraftObjVisitor& visitor) override;
 };
