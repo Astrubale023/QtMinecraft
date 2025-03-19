@@ -1,0 +1,13 @@
+[
+    {
+        "name": "mat28",
+        "rariry": "Common",
+        "stackable": true,
+        "type": "Material"
+    },
+    {
+        "hardness": 47,
+        "name": "Bloccocks",
+        "type": "Block"
+    }
+]
