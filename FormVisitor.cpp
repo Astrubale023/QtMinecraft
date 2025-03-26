@@ -289,14 +289,23 @@ void FormVisitor::selectImage(QLabel* previewLabel) {
     // Percorso di salvataggio
     QString openPath = "icons/" + imageName;
 
-    // Copia il file nella cartella icons/
-    if (QFile::copy(filePath, openPath)) {
+    if (QFile::exists(openPath)) {
         previewLabel->setPixmap(QPixmap(openPath).scaled(100, 100, Qt::KeepAspectRatio));
-        qDebug() << "Immagine salvata in:" << openPath;
+        qDebug() << "Immagine già esistente in:" << openPath;
 
         // Salviamo temporaneamente il percorso nel campo "imagePath"
         fields["imagePath"] = new QLabel(imageName); // Non verrà mostrata, ma serve per onSave()
-    } else {
-        qDebug() << "Errore nel salvataggio dell'immagine!";
+    }
+    else {
+        // Copia il file nella cartella icons/
+        if (QFile::copy(filePath, openPath)) {
+            previewLabel->setPixmap(QPixmap(openPath).scaled(100, 100, Qt::KeepAspectRatio));
+            qDebug() << "Immagine salvata in:" << openPath;
+
+            // Salviamo temporaneamente il percorso nel campo "imagePath"
+            fields["imagePath"] = new QLabel(imageName); // Non verrà mostrata, ma serve per onSave()
+        } else {
+            qDebug() << "Errore nel salvataggio dell'immagine!";
+        }
     }
 }

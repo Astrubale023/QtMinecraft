@@ -12,5 +12,26 @@
         "name": "Piccione",
         "stackable": true,
         "type": "Weapon"
+    },
+    {
+        "imageName": "Lantern-1.png",
+        "name": "bob04",
+        "stackable": false,
+        "type": "Item"
+    },
+    {
+        "damage": 1,
+        "imageName": "Mossy_Cobblestone.png",
+        "material_name": "Ferrugipoli",
+        "name": "sboboz10",
+        "stackable": false,
+        "type": "Weapon"
+    },
+    {
+        "imageName": "Iron_Ingot.png",
+        "name": "Ferrugipoli",
+        "rariry": "Epic",
+        "stackable": false,
+        "type": "Material"
     }
 ]
