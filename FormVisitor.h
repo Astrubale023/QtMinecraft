@@ -8,6 +8,7 @@
 #include <QComboBox>
 #include <QSpinBox>
 #include <QMap>
+#include <QLabel>
 #include "MinecraftObjVisitor.h"
 
 class LibraryManager;
@@ -53,6 +54,7 @@ private:
     void createLineEdit(const QString& label, const QString& key, const QString& value);
     void createComboBox(const QString& label, const QString& key, const QStringList& options, int currentIndex);
     void createSpinBox(const QString& label, const QString& key, int min, int max, int value);
+    void selectImage(QLabel* previewLabel);
     
     QString getLineEditValue(const QString& key) const;
     int getComboBoxValue(const QString& key) const;

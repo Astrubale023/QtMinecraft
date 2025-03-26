@@ -4,9 +4,9 @@
 //const Material Material::IRON("Iron", true, Rarity::COMMON);
 //const Material Material::GOLD("Gold", true, Rarity::RARE);
 //const Material Material::DIAMOND("Diamond", true, Rarity::EPIC);
-const Material Material::DEFAULT_MAT("Default", false, Rarity::COMMON);
+//const Material Material::DEFAULT_MAT("Default", false, Rarity::COMMON);
 
-Material::Material(const std::string& nome, bool stackable, Rarity rarity) : Item(nome, stackable), rarity(rarity) {}
+Material::Material(const std::string& nome, const std::string& imageName, bool stackable, Rarity rarity) : Item(nome, imageName, stackable), rarity(rarity) {}
 
 Material* Material::clone() {
     return new Material(*this);

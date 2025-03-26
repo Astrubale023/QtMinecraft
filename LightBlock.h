@@ -17,7 +17,7 @@ private:
     float brightness;
 
 public: //GREEN solo perchè è l'unico colore non primario tra i 4
-    LightBlock(const std::string& nome = "", int hardness = 0, LightColor lightColor = LightColor::GREEN, float brightness = 0);
+    LightBlock(const std::string& nome = "", const std::string& imageName = "default.png", int hardness = 0, LightColor lightColor = LightColor::GREEN, float brightness = 0);
     ~LightBlock() override = default;
 
     LightBlock* clone() override;

@@ -59,8 +59,9 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
 
             // Se il materiale non esiste già, lo creiamo e lo aggiungiamo alla lista
             if (!materialExists) {
+                QString img = obj["imageName"].toString();
                 Rarity rarity = Material::intToRarity(obj["rarity"].toInt());
-                Material* newMaterial = new Material(materialName.toStdString(), true, rarity);
+                Material* newMaterial = new Material(materialName.toStdString(), img.toStdString(), true, rarity);
                 objects.append(newMaterial);  // Aggiungi il materiale alla lista
             }
         }
@@ -71,11 +72,12 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
         QJsonObject obj = value.toObject();
         QString type = obj["type"].toString();
         QString name = obj["name"].toString();
+        QString img = obj["imageName"].toString();
 
         if (type == "Item") {
             // Se è un Item, lo ricostruiamo
             bool stackable = obj["stackable"].toBool();
-            Item* item = new Item(name.toStdString(), stackable);
+            Item* item = new Item(name.toStdString(), img.toStdString(), stackable);
             objects.append(item);
         } else if (type == "Weapon") {
             int damage = obj["damage"].toInt();
@@ -94,16 +96,16 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
             }
 
             if (material != nullptr) {
-                Weapon* weapon = new Weapon(name.toStdString(), stackable, damage, material);
+                Weapon* weapon = new Weapon(name.toStdString(), img.toStdString(), stackable, damage, material);
                 objects.append(weapon);
             } else {    // non ha trovato il materiale e allora me lo mette lui a deafult
-                Weapon* weapon = new Weapon(name.toStdString(), stackable, damage);
+                Weapon* weapon = new Weapon(name.toStdString(), img.toStdString(), stackable, damage);
                 objects.append(weapon);
             }
         } else if (type == "Block") {
             // Se è un Block, lo ricostruiamo
             int hardness = obj["hardness"].toInt();
-            Block* block = new Block(name.toStdString(), hardness);
+            Block* block = new Block(name.toStdString(), img.toStdString(), hardness);
             objects.append(block);
         } else if (type == "OreBlock") {
             // Se è un OreBlock, lo ricostruiamo
@@ -123,10 +125,10 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
             }
 
             if (material != nullptr) {
-                OreBlock* oreBlock = new OreBlock(name.toStdString(), hardness, minDrop, maxDrop, material);
+                OreBlock* oreBlock = new OreBlock(name.toStdString(), img.toStdString(), hardness, minDrop, maxDrop, material);
                 objects.append(oreBlock);
             } else {
-                OreBlock* oreBlock = new OreBlock(name.toStdString(), hardness, minDrop, maxDrop);
+                OreBlock* oreBlock = new OreBlock(name.toStdString(), img.toStdString(), hardness, minDrop, maxDrop);
                 objects.append(oreBlock);
             }
         } else if (type == "LightBlock") {
@@ -134,7 +136,7 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
             LightColor lightColor = LightBlock::intToColor(obj["lightColor"].toInt());
             float brightness = obj["brightness"].toDouble();
 
-            LightBlock* lightBlock = new LightBlock(name.toStdString(), hardness, lightColor, brightness);
+            LightBlock* lightBlock = new LightBlock(name.toStdString(), img.toStdString(), hardness, lightColor, brightness);
             objects.append(lightBlock);
         }
     }

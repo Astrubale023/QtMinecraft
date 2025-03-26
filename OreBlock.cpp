@@ -2,8 +2,8 @@
 #include "Material.h"
 #include "MinecraftObjVisitor.h"
 
-OreBlock::OreBlock(const std::string& nome, int hardness, int minDrop, int maxDrop, Material* material)
-    : Block(nome, hardness), minDrop(minDrop), maxDrop(maxDrop), material(material) {}
+OreBlock::OreBlock(const std::string& nome, const std::string& imageName, int hardness, int minDrop, int maxDrop, Material* material)
+    : Block(nome, imageName, hardness), minDrop(minDrop), maxDrop(maxDrop), material(material) {}
 
 OreBlock* OreBlock::clone() {
     return new OreBlock(*this);

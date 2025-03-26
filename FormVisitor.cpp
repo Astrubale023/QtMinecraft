@@ -3,6 +3,10 @@
 #include <QVBoxLayout>
 #include <QString>
 #include <QDebug>
+#include <QFile>
+#include <QDir>
+#include <QLabel>
+#include <QFileDialog>
 #include "MinecraftObj.h"
 #include "Item.h"
 #include "Weapon.h"
@@ -46,6 +50,29 @@ void FormVisitor::buildForm(MinecraftObj *obj) {
 
 void FormVisitor::visit(const MinecraftObj &obj) {
     createLineEdit("Nome:", "name", QString::fromStdString(obj.getNome()));
+
+    // Pulsante per selezionare un'immagine
+    QPushButton *selectImageButton = new QPushButton("Seleziona Icona");
+    QLabel *imagePreview = new QLabel(this);
+    imagePreview->setAlignment(Qt::AlignCenter);
+    imagePreview->setFixedSize(100, 100); // Dimensione anteprima
+
+    // Controlla se l'oggetto ha già un'icona salvata
+    QString imagePath = QString::fromStdString(obj.getImage());
+    if (!imagePath.isEmpty() && QFile::exists(imagePath)) {
+        imagePreview->setPixmap(QPixmap(imagePath).scaled(100, 100, Qt::KeepAspectRatio));
+    }
+
+    formLayout->addRow("Icona:", selectImageButton);
+    formLayout->addRow(imagePreview);
+
+    // Collega il pulsante alla funzione di selezione dell'immagine
+    connect(selectImageButton, &QPushButton::clicked, this, [this, imagePreview]() {
+        selectImage(imagePreview);
+    });
+
+    // Salva l'anteprima nel dizionario dei campi
+    fields["iconPreview"] = imagePreview;
 }
 
 void FormVisitor::visit(const Item &item) {
@@ -67,30 +94,18 @@ void FormVisitor::visit(const Weapon &weapon) {
     visit(static_cast<const Item&>(weapon));
     createSpinBox("Danno:", "damage", 0, 100, weapon.getDamage());
 
-    qDebug() << "Prima di getMaterials";
-
-    if (!libraryManager) {
-        qDebug() << "Errore: libraryManager è nullptr!";
-        return;
-    }
-
     QList<Material*> materials = libraryManager->getMaterials(); // Otteniamo la lista di materiali
-
-    qDebug() << "Dopo di getMaterials\nPrima Nessun Materiale";
 
     QStringList materialNames;
     materialNames.append("Nessun Materiale"); // Opzione per nessun materiale
     int selectedIndex = 0;
 
     for (int i = 0; i < materials.size(); ++i) {
-        qDebug() << "Dentro for "<< i;
         materialNames.append(QString::fromStdString(materials[i]->getNome()));
         if (materials[i] == weapon.getMaterial()) {
             selectedIndex = i + 1; // +1 perché "Nessun Materiale" è il primo elemento
         }
     }
-
-    qDebug() << "Creazione ComboBox";
 
     createComboBox("Materiale:", "material", materialNames, selectedIndex);
 }
@@ -127,6 +142,16 @@ void FormVisitor::onSave() {
     MinecraftObj* newObj = currentObj->clone();
 
     newObj->setNome(getLineEditValue("name").toStdString());
+
+    // Controlla se è stata selezionata un'immagine
+    auto it = fields.find("imagePath");
+    if (it != fields.end()) {
+        QLabel *imageLabel = dynamic_cast<QLabel*>(it.value());
+        if (imageLabel) {
+            QString imagePath = imageLabel->text();
+            newObj->setImage(imagePath.toStdString()); // Salviamo il percorso nell'oggetto
+        }
+    }
 
     if (auto* item = dynamic_cast<Item*>(newObj)) {
         item->setStackable(getComboBoxValue("stackable"));
@@ -247,4 +272,31 @@ int FormVisitor::getComboBoxValue(const QString &field) const {
         }
     }
     return 0;
+}
+
+void FormVisitor::selectImage(QLabel* previewLabel) {
+    QString filePath = QFileDialog::getOpenFileName(this, "Seleziona un'icona", "", "Immagini (*.png *.jpg *.jpeg)");
+    if (filePath.isEmpty()) return;
+
+    // Estrarre solo il nome del file (senza percorso)
+    QFileInfo fileInfo(filePath);
+    QString imageName = fileInfo.fileName();
+
+    // Creiamo la cartella icons/ se non esiste
+    QDir dir("icons");
+    if (!dir.exists()) dir.mkpath(".");
+
+    // Percorso di salvataggio
+    QString openPath = "icons/" + imageName;
+
+    // Copia il file nella cartella icons/
+    if (QFile::copy(filePath, openPath)) {
+        previewLabel->setPixmap(QPixmap(openPath).scaled(100, 100, Qt::KeepAspectRatio));
+        qDebug() << "Immagine salvata in:" << openPath;
+
+        // Salviamo temporaneamente il percorso nel campo "imagePath"
+        fields["imagePath"] = new QLabel(imageName); // Non verrà mostrata, ma serve per onSave()
+    } else {
+        qDebug() << "Errore nel salvataggio dell'immagine!";
+    }
 }

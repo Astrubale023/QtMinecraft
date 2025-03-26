@@ -11,7 +11,7 @@ private:
     Material* material;
 
 public://qui const_cast perchè dereferenziondo DEFAULT_MAT mi da un puntatore a const e a noi conveniva così
-    Weapon(const std::string& nome = "", bool stackable=false, int damage = 0, Material* material = nullptr);
+    Weapon(const std::string& nome = "", const std::string& imageName = "default.png", bool stackable=false, int damage = 0, Material* material = nullptr);
     ~Weapon() override = default;
 
     Weapon* clone() override;

@@ -9,7 +9,7 @@ private:
     bool stackable;
 
 public:
-    Item(const std::string& nome = "", bool stackable = false);
+    Item(const std::string& nome = "", const std::string& imageName = "default.png", bool stackable = false);
     ~Item() override = default;
 
     Item* clone() override;

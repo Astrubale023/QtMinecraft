@@ -21,7 +21,7 @@ public:
     //static const Material DIAMOND;
     static const Material DEFAULT_MAT;
 
-    explicit Material(const std::string& nome = "", bool stackable=false, Rarity rarity=Rarity::COMMON);
+    explicit Material(const std::string& nome = "", const std::string& imageName = "default.png", bool stackable=false, Rarity rarity=Rarity::COMMON);
     ~Material() override = default;
 
     Material* clone() override;

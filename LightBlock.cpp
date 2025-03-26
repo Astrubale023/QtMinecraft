@@ -1,8 +1,8 @@
 #include "LightBlock.h"
 #include "MinecraftObjVisitor.h"
 
-LightBlock::LightBlock(const std::string& nome, int hardness, LightColor lightColor, float brightness)
-    : Block(nome, hardness), lightColor(lightColor), brightness(brightness) {}
+LightBlock::LightBlock(const std::string& nome, const std::string& imageName, int hardness, LightColor lightColor, float brightness)
+    : Block(nome, imageName, hardness), lightColor(lightColor), brightness(brightness) {}
 
 LightBlock* LightBlock::clone() {
     return new LightBlock(*this);

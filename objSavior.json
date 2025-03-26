@@ -1,20 +1,16 @@
 [
     {
-        "name": "mat28",
-        "rariry": "Common",
-        "stackable": true,
-        "type": "Material"
-    },
-    {
-        "hardness": 47,
-        "name": "Bloccocks",
+        "hardness": 6,
+        "imageName": "great_feather.png",
+        "name": "Foghlia",
         "type": "Block"
     },
     {
-        "damage": 60,
+        "damage": 4,
+        "imageName": "glider.png",
         "material_name": "",
-        "name": "Cancellinopoli",
-        "stackable": false,
+        "name": "Piccione",
+        "stackable": true,
         "type": "Weapon"
     }
 ]

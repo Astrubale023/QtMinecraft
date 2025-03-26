@@ -12,7 +12,7 @@ private:
     Material* material;
 
 public:
-    OreBlock(const std::string& nome = "", int hardness = 0, int minDrop = 0, int maxDrop = 0, Material* material = nullptr);
+    OreBlock(const std::string& nome = "", const std::string& imageName = "default.png", int hardness = 0, int minDrop = 0, int maxDrop = 0, Material* material = nullptr);
     ~OreBlock() override = default;
 
     OreBlock* clone() override;

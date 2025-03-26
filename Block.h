@@ -9,7 +9,7 @@ private:
     int hardness;
 
 public:
-    Block(const std::string& nome = "", int hardness = 0);
+    Block(const std::string& nome = "", const std::string& imageName = "default.png",int hardness = 0);
     ~Block() override = default;
 
     Block* clone() override;
