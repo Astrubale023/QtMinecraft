@@ -12,6 +12,8 @@ public:
     Item(const std::string& nome = "", bool stackable = false);
     ~Item() override = default;
 
+    Item* clone() override;
+
     // Getter
     bool isStackable() const;
 

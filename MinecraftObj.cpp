@@ -3,11 +3,7 @@
 
 // Costruttore
 MinecraftObj::MinecraftObj(const std::string& nome)
-    : nome(nome) {
-        if (nome.empty()) {
-            throw std::invalid_argument("Il nome non può essere vuoto.");
-        }
-    }
+    : nome(nome) {} // tolto controllo per stringa vuota
 
 // Getter per nome
 std::string MinecraftObj::getNome() const {

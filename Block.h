@@ -12,6 +12,8 @@ public:
     Block(const std::string& nome = "", int hardness = 0);
     ~Block() override = default;
 
+    Block* clone() override;
+
     // Getter
     int getHardness() const;
 

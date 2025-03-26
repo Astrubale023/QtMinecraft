@@ -4,9 +4,13 @@
 
 Block::Block(const std::string& nome, int hardness)
     : MinecraftObj(nome), hardness(hardness) {
-    if (hardness <= 0) {
+    if (hardness < 0) {
         throw std::invalid_argument("La durezza deve essere maggiore di zero.");
     }
+}
+
+Block* Block::clone() {
+    return new Block(*this);
 }
 
 // Getter

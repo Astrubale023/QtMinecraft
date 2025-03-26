@@ -9,5 +9,12 @@
         "hardness": 47,
         "name": "Bloccocks",
         "type": "Block"
+    },
+    {
+        "damage": 60,
+        "material_name": "",
+        "name": "Cancellinopoli",
+        "stackable": false,
+        "type": "Weapon"
     }
 ]

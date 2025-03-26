@@ -8,6 +8,10 @@ const Material Material::DEFAULT_MAT("Default", false, Rarity::COMMON);
 
 Material::Material(const std::string& nome, bool stackable, Rarity rarity) : Item(nome, stackable), rarity(rarity) {}
 
+Material* Material::clone() {
+    return new Material(*this);
+}
+
 Rarity Material::getRarity() const {
     return rarity;
 }

@@ -2,7 +2,6 @@
 qmake -project
 qmake
 sed -i "7a QT += widgets gui core" CompilerMinecraftQt.pro
-sed -i "8a RESOURCES += resources.qrc" CompilerMinecraftQt.pro
 
 
 make

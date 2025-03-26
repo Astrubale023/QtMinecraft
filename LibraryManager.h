@@ -3,6 +3,7 @@
 
 #include <QList>
 #include "MinecraftObj.h"
+#include "Material.h"
 #include "JsonHandler.h"
 
 class LibraryManager {
@@ -18,6 +19,7 @@ public:
     void deleteObject(MinecraftObj* obj);
 
     const QList<MinecraftObj*>& getObjects() const;
+    const QList<Material*> getMaterials() const;
     MinecraftObj* getItem(MinecraftObj* obj) const;
     QList<MinecraftObj*> filterObjectsByName(const QString& filter) const;
 

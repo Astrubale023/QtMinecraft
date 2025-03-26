@@ -8,6 +8,7 @@ class MinecraftObj {
 public:
     MinecraftObj(const std::string& nome);
     virtual ~MinecraftObj() = default;
+    virtual MinecraftObj* clone() = 0;
 
     std::string getNome() const;
     void setNome(const std::string& nuovoNome);

@@ -9,27 +9,27 @@
 #include "OreBlock.h"
 
 void CardVisitor::visit(const Item& item) {
-    createCard(item.getNome(), ":/icons/glider.png");  // Usa riferimento
+    createCard(item.getNome(), "icons/Stick.png");  // Usa riferimento
 }
 
 void CardVisitor::visit(const Material& material) {
-    createCard(material.getNome(), ":/icons/glider.png");  // Usa riferimento
+    createCard(material.getNome(), "icons/Iron_Ingot.png");  // Usa riferimento
 }
 
 void CardVisitor::visit(const Weapon& weapon) {
-    createCard(weapon.getNome(), ":/icons/glide.png");  // Usa riferimento
+    createCard(weapon.getNome(), "icons/Diamond_Sword.png");  // Usa riferimento
 }
 
 void CardVisitor::visit(const Block& block) {
-    createCard(block.getNome(), ":/icons/glider.png");  // Usa riferimento
+    createCard(block.getNome(), "icons/Mossy_Cobblestone.png");  // Usa riferimento
 }
 
 void CardVisitor::visit(const LightBlock& lightBlock) {
-    createCard(lightBlock.getNome(), ":/icons/glider.png");  // Usa riferimento
+    createCard(lightBlock.getNome(), "icons/Lantern-1.png");  // Usa riferimento
 }
 
 void CardVisitor::visit(const OreBlock& oreBlock) {
-    createCard(oreBlock.getNome(), ":/icons/glider.png");  // Usa riferimento
+    createCard(oreBlock.getNome(), "icons/Copper_Ore.png");  // Usa riferimento
 }
 
 void CardVisitor::createCard(const std::string& name, const QString& imagePath) {

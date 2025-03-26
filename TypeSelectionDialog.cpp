@@ -1,4 +1,5 @@
 #include "TypeSelectionDialog.h"
+#include <QDebug>
 
 TypeSelectionDialog::TypeSelectionDialog(QWidget* parent) : QDialog(parent) {
     setWindowTitle("Seleziona Tipo Oggetto");

@@ -5,6 +5,10 @@
 Weapon::Weapon(const std::string& nome, bool stackable, int damage, Material* material)
     : Item(nome, stackable), damage(damage), material(material) {}
 
+Weapon* Weapon::clone() {
+    return new Weapon(*this);
+}
+
 int Weapon::getDamage() const {
     return damage;
 }

@@ -5,6 +5,10 @@
 OreBlock::OreBlock(const std::string& nome, int hardness, int minDrop, int maxDrop, Material* material)
     : Block(nome, hardness), minDrop(minDrop), maxDrop(maxDrop), material(material) {}
 
+OreBlock* OreBlock::clone() {
+    return new OreBlock(*this);
+}
+
 Material* OreBlock::getMaterial() const {
     return material;
 }

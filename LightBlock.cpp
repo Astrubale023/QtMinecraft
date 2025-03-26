@@ -4,6 +4,10 @@
 LightBlock::LightBlock(const std::string& nome, int hardness, LightColor lightColor, float brightness)
     : Block(nome, hardness), lightColor(lightColor), brightness(brightness) {}
 
+LightBlock* LightBlock::clone() {
+    return new LightBlock(*this);
+}
+
 LightColor LightBlock::getLightColor() const {
     return lightColor;
 }

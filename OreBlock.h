@@ -12,8 +12,10 @@ private:
     Material* material;
 
 public:
-    OreBlock(const std::string& nome = "", int hardness = 0, int minDrop = 0, int maxDrop = 0, Material* material = const_cast<Material *>(&Material::DEFAULT_MAT));
+    OreBlock(const std::string& nome = "", int hardness = 0, int minDrop = 0, int maxDrop = 0, Material* material = nullptr);
     ~OreBlock() override = default;
+
+    OreBlock* clone() override;
 
     // Getter
     Material* getMaterial() const;

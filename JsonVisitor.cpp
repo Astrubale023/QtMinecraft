@@ -24,10 +24,8 @@ void JsonVisitor::visit(const Weapon& weapon) {
     tempJsonObject["name"] = QString::fromStdString(weapon.getNome());
     tempJsonObject["stackable"] = weapon.isStackable();
     tempJsonObject["damage"] = weapon.getDamage();
-    // salvare il materiale
-    if(weapon.getMaterial()) {
-        tempJsonObject["material_name"] = QString::fromStdString(weapon.getMaterial()->getNome());
-    }
+    tempJsonObject["material_name"] = QString::fromStdString(weapon.getMaterial() ? weapon.getMaterial()->getNome() : "");
+
     jsonobject = tempJsonObject;
 }
 
@@ -58,13 +56,7 @@ void JsonVisitor::visit(const OreBlock& oreBlock) {
     tempJsonObject["hardness"] = oreBlock.getHardness();
     tempJsonObject["minDrop"] = oreBlock.getMinDrop();
     tempJsonObject["maxDrop"] = oreBlock.getMaxDrop();
-
-    // Aggiunta del nome del materiale (verifichiamo che il materiale esista)
-    if (oreBlock.getMaterial() != nullptr) {
-        tempJsonObject["materialName"] = QString::fromStdString(oreBlock.getMaterial()->getNome());
-    } else {
-        tempJsonObject["materialName"] = "";  // Lascia vuoto se non c'è materiale
-    }
+    tempJsonObject["material_name"] = QString::fromStdString(oreBlock.getMaterial() ? oreBlock.getMaterial()->getNome() : "");
 
     jsonobject = tempJsonObject;
 }

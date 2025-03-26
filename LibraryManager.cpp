@@ -31,6 +31,18 @@ const QList<MinecraftObj*>& LibraryManager::getObjects() const {
     return objects;
 }
 
+const QList<Material*> LibraryManager::getMaterials() const {
+    QList<Material*> materialsList;
+
+    for (MinecraftObj* obj : objects) { // Supponiamo che 'objects' contenga tutti gli oggetti
+        if (Material* material = dynamic_cast<Material*>(obj)) {
+            materialsList.append(material);
+        }
+    }
+
+    return materialsList;
+}
+
 MinecraftObj* LibraryManager::getItem(MinecraftObj* obj) const {
     int index = objects.indexOf(obj);
     return (index != -1) ? objects[index] : nullptr;

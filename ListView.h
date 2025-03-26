@@ -2,52 +2,52 @@
 #define LISTVIEW_H
 
 #include <QWidget>
-#include <QScrollArea>
-#include <QGridLayout>
-#include <QLineEdit>
 #include <QPushButton>
+#include <QLineEdit>
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QScrollArea>
 #include <QMessageBox>
-#include <QResizeEvent>
+#include "MinecraftObj.h"
 
 class LibraryManager;
-class MinecraftObj;
 
 class ListView : public QWidget {
     Q_OBJECT
 
-private:
-    LibraryManager *libraryManager;
-    QScrollArea *scrollArea;
-    QWidget *scrollWidget;
-    QGridLayout *cardLayout; // GridLayout per un adattamento migliore
-    QLineEdit *searchBar;
-    QPushButton *refreshButton;
-    QPushButton *addButton;
-    int columnCount; // Numero di colonne per riga (calcolato dinamicamente)
-
-    void populateList(const QString& filter = ""); // Aggiorna la lista con il filtro
-    void adjustGridLayout(); // Regola il numero di colonne in base alla dimensione della finestra
-
 public:
     explicit ListView(LibraryManager *libraryManager, QWidget *parent = nullptr);
 
-protected:
-    void resizeEvent(QResizeEvent *event) override; // Gestisce il ridimensionamento della finestra
-
 signals:
-    void viewItem(MinecraftObj* item);
-    void editItem(MinecraftObj* item);
-    void deleteItem(MinecraftObj* item);
-    void addItem();
-
-private slots:
-    void onSearchTextChanged();      // Applica il filtro quando cambia il testo
-    void onDeleteConfirmed(MinecraftObj* item); // Conferma ed elimina un oggetto
-    void onAddItemClicked();         // Segnale per aggiungere un nuovo elemento
+    void viewItem(MinecraftObj* obj);  // Segnale per mostrare i dettagli
+    void editItem(MinecraftObj* obj);  // Segnale per modificare un oggetto
+    void addItem(MinecraftObj* tempObj); // Segnale per aggiungere un nuovo oggetto
 
 public slots:
-    void onRefreshClicked();         // Ricarica la lista senza filtri
+    void onRefreshClicked(); // Aggiorna la lista
+    void onSearchTextChanged(); // Filtra gli elementi in base alla barra di ricerca
 
+protected:
+    void resizeEvent(QResizeEvent *event) override; // Adatta la griglia alla finestra
+
+private:
+    LibraryManager *libraryManager;
+    
+    // UI Components
+    QLineEdit *searchBar;
+    QPushButton *refreshButton;
+    QPushButton *addButton;
+    QScrollArea *scrollArea;
+    QWidget *scrollWidget;
+    QGridLayout *cardLayout;
+    
+    int columnCount;
+
+    // Metodi privati
+    void populateList(const QString& filter = ""); // Carica gli oggetti nella lista
+    void adjustGridLayout(); // Adatta la griglia in base alla dimensione della finestra
+    void onDeleteConfirmed(MinecraftObj* item); // Conferma ed elimina un oggetto
+    void onAddItemClicked(); // Mostra il form per aggiungere un oggetto
 };
 
 #endif // LISTVIEW_H

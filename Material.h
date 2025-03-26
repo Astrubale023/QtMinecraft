@@ -24,6 +24,8 @@ public:
     explicit Material(const std::string& nome = "", bool stackable=false, Rarity rarity=Rarity::COMMON);
     ~Material() override = default;
 
+    Material* clone() override;
+
     Rarity getRarity() const;
     void setRarity(Rarity r);
     void setRarity(int r);

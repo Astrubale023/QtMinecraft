@@ -5,6 +5,10 @@
 Item::Item(const std::string& nome,bool stackable)
     : MinecraftObj(nome),stackable(stackable) {}
 
+Item* Item::clone() {
+    return new Item(*this);
+}
+
 // Getter
 bool Item::isStackable() const {
     return stackable;
