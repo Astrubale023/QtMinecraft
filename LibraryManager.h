@@ -4,7 +4,6 @@
 #include <QList>
 #include "MinecraftObj.h"
 #include "Material.h"
-#include "JsonHandler.h"
 
 class LibraryManager {
 private:
@@ -25,6 +24,9 @@ public:
 
     void saveToJson(const QString& filename);
     void loadFromJson(const QString& filename);
+
+    void saveToXML(const QString& filename);
+    void loadFromXML(const QString& filename);
 };
 
 #endif // LIBRARYMANAGER_H

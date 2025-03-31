@@ -22,6 +22,8 @@ FormVisitor::FormVisitor(FormMode mode, LibraryManager* libraryManager, QWidget 
     saveButton = new QPushButton("Salva");
     cancelButton = new QPushButton("Annulla");
 
+    cancelButton->setShortcut(QKeySequence("Ctrl+X"));
+
     QHBoxLayout *buttonLayout = new QHBoxLayout();
     buttonLayout->addWidget(saveButton);
     buttonLayout->addWidget(cancelButton);

@@ -1,0 +1,9 @@
+<MinecraftObjects>
+    <Material name="Ferrugipoli" stackable="true" imageName="Iron_Ingot.png" rarity="Common"/>
+    <Block name="Foghlia" hardness="6" imageName="great_feather.png"/>
+    <Weapon name="Piccione" stackable="true" imageName="glider.png" damage="4" material_name=""/>
+    <Item name="bob04" stackable="false" imageName="Lantern-1.png"/>
+    <Weapon name="sboboz10" stackable="false" imageName="Mossy_Cobblestone.png" damage="1" material_name="Ferrugipoli"/>
+    <LightBlock name="pinco Spallino" brightness="6" hardness="27" lightColor="Red" imageName="Schermata del 2025-03-24 18-25-25.png"/>
+    <Material name="Pietruzzolozzola" stackable="false" imageName="Rocking.png" rarity="Leggendary"/>
+</MinecraftObjects>

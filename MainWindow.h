@@ -7,6 +7,8 @@
 #include "FormVisitor.h"
 #include "LibraryManager.h"
 
+enum class Format{ JSON, XML };
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -16,10 +18,11 @@ public:
 private slots:
     void showListView();
     void showFormView(MinecraftObj* obj, FormVisitor::FormMode mode);
-    void saveJson();
-    void loadJson();
+    void loadFile(Format format, const QString fileName);
+    void saveFile(Format format, const QString fileName);
 
 private:
+
     void createMenuBar();
 
     LibraryManager *libraryManager;

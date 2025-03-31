@@ -85,6 +85,8 @@ void ListView::populateList(const QString& filter) {
             row++;
         }
     }
+
+    adjustGridLayout();
 }
 
 void ListView::onSearchTextChanged() {

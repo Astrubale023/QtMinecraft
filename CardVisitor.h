@@ -29,7 +29,7 @@ private:
     QPushButton *editBtn;
     QPushButton *deleteBtn;
 
-    void createCard(const std::string& name, const QString& imagePath);
+    void createCard(const QString& name, const QString& imagePath);
 };
 
 #endif // CARDVISITOR_H

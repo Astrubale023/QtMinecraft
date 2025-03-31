@@ -10,30 +10,30 @@
 #include "OreBlock.h"
 
 void CardVisitor::visit(const Item& item) {
-    createCard(item.getNome(), QString::fromStdString("icons/"+item.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(item.getNome() + " | Item"), QString::fromStdString("icons/"+item.getImage()));  // Usa riferimento
 }
 
 void CardVisitor::visit(const Material& material) {
-    createCard(material.getNome(), QString::fromStdString("icons/"+material.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(material.getNome() + " | Material"), QString::fromStdString("icons/"+material.getImage()));  // Usa riferimento
 }
 
 void CardVisitor::visit(const Weapon& weapon) {
-    createCard(weapon.getNome(), QString::fromStdString("icons/"+weapon.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(weapon.getNome() + " | Weapon"), QString::fromStdString("icons/"+weapon.getImage()));  // Usa riferimento
 }
 
 void CardVisitor::visit(const Block& block) {
-    createCard(block.getNome(), QString::fromStdString("icons/"+block.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(block.getNome() + " | Block"), QString::fromStdString("icons/"+block.getImage()));  // Usa riferimento
 }
 
 void CardVisitor::visit(const LightBlock& lightBlock) {
-    createCard(lightBlock.getNome(), QString::fromStdString("icons/"+lightBlock.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(lightBlock.getNome() + " | LightBlock"), QString::fromStdString("icons/"+lightBlock.getImage()));  // Usa riferimento
 }
 
 void CardVisitor::visit(const OreBlock& oreBlock) {
-    createCard(oreBlock.getNome(), QString::fromStdString("icons/"+oreBlock.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(oreBlock.getNome() + " | OreBlock"), QString::fromStdString("icons/"+oreBlock.getImage()));  // Usa riferimento
 }
 
-void CardVisitor::createCard(const std::string& name, const QString& imagePath) {
+void CardVisitor::createCard(const QString& name, const QString& imagePath) {
     cardWidget = new QWidget();
     cardWidget->setObjectName("card");  // identificativo
     QVBoxLayout *layout = new QVBoxLayout(cardWidget);
@@ -47,7 +47,7 @@ void CardVisitor::createCard(const std::string& name, const QString& imagePath) 
     imageLabel->setPixmap(pixmap.scaled(128, 128, Qt::KeepAspectRatio));
 
     // Nome
-    QLabel *nameLabel = new QLabel(QString::fromStdString("\t") + QString::fromStdString(name));
+    QLabel *nameLabel = new QLabel(name);
 
     // Pulsanti
     viewBtn = new QPushButton("Visualizza");
@@ -56,7 +56,7 @@ void CardVisitor::createCard(const std::string& name, const QString& imagePath) 
 
     // Aggiungi i widget al layout
     layout->addWidget(imageLabel, 0, Qt::AlignCenter);
-    layout->addWidget(nameLabel);
+    layout->addWidget(nameLabel, 0, Qt::AlignCenter);
     layout->addWidget(viewBtn);
     layout->addWidget(editBtn);
     layout->addWidget(deleteBtn);

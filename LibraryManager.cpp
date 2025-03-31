@@ -1,5 +1,8 @@
 #include "LibraryManager.h"
 
+#include "JsonHandler.h"
+#include "XmlHandler.h"
+
 LibraryManager::LibraryManager() {}
 
 LibraryManager::~LibraryManager() {
@@ -66,4 +69,14 @@ void LibraryManager::loadFromJson(const QString& filename) {
     qDeleteAll(objects);  // Libera la memoria degli oggetti precedenti
     objects.clear();
     JsonHandler::loadObjectsFromFile(filename, objects);
+}
+
+void LibraryManager::saveToXML(const QString& filename) {
+    XmlHandler::saveObjectsToFile(filename, objects);
+}
+
+void LibraryManager::loadFromXML(const QString& filename) {
+    qDeleteAll(objects);  // Libera la memoria degli oggetti precedenti
+    objects.clear();
+    XmlHandler::loadObjectsFromFile(filename, objects);
 }

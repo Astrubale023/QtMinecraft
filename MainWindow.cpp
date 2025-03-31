@@ -31,22 +31,44 @@ MainWindow::MainWindow(LibraryManager *libraryManager, QWidget *parent)
     });
 
     setWindowTitle("Gestione Oggetti Minecraft");
-    resize(800, 600);
+    resize(1000, 800);
 }
 
 void MainWindow::createMenuBar() {
-    //menuBar = new QMenuBar(this);   // menuBar è il nome di un metodo anche e pensa che io voglia assegnare un qualcosa al metodo, lol
     QMenuBar* mainMenuBar = new QMenuBar(this);
     QMenu *fileMenu = mainMenuBar->addMenu("File");
 
-    QAction *saveJsonAction = new QAction("Salva JSON", this);
-    QAction *loadJsonAction = new QAction("Carica JSON", this);
+    QAction *saveAction = new QAction("Salva", this);
+    QAction *loadAction = new QAction("Carica", this);
 
-    fileMenu->addAction(saveJsonAction);
-    fileMenu->addAction(loadJsonAction);
+    fileMenu->addAction(saveAction);
+    fileMenu->addAction(loadAction);
 
-    connect(saveJsonAction, &QAction::triggered, this, &MainWindow::saveJson);
-    connect(loadJsonAction, &QAction::triggered, this, &MainWindow::loadJson);
+    // Aggiunta delle shortcut
+    saveAction->setShortcut(QKeySequence("Ctrl+S"));
+    loadAction->setShortcut(QKeySequence("Ctrl+O"));
+
+    connect(saveAction, &QAction::triggered, this, [this]() {
+        // Chiede all'utente se vuole salvare in JSON o XML
+        QString fileName = QFileDialog::getSaveFileName(this, "Salva come", "", "JSON e XML (*.json *.xml)");
+        if (!fileName.isEmpty()) {
+            if (fileName.endsWith(".json"))
+                saveFile(Format::JSON, fileName);
+            else if (fileName.endsWith(".xml"))
+                saveFile(Format::XML, fileName);
+        }
+    });
+
+    connect(loadAction, &QAction::triggered, this, [this]() {
+        // Chiede all'utente se vuole caricare JSON o XML
+        QString fileName = QFileDialog::getOpenFileName(this, "Carica file", "", "JSON e XML (*.json *.xml)");
+        if (!fileName.isEmpty()) {
+            if (fileName.endsWith(".json"))
+                loadFile(Format::JSON, fileName);
+            else if (fileName.endsWith(".xml"))
+                loadFile(Format::XML, fileName);
+        }
+    });
 
     setMenuBar(mainMenuBar);
 }
@@ -92,17 +114,22 @@ void MainWindow::showFormView(MinecraftObj* obj, FormVisitor::FormMode mode) {
     });
 }
 
-void MainWindow::saveJson() {
-    QString filename = QFileDialog::getSaveFileName(this, "Salva JSON", "", "JSON Files (*.json)");
-    if (!filename.isEmpty()) {
-        libraryManager->saveToJson(filename);
+void MainWindow::saveFile(Format format, const QString fileName) {
+    if (!fileName.isEmpty()) {
+        if (format == Format::JSON)
+            libraryManager->saveToJson(fileName);
+        else
+            libraryManager->saveToXML(fileName);
     }
 }
 
-void MainWindow::loadJson() {
-    QString filename = QFileDialog::getOpenFileName(this, "Carica JSON", "", "JSON Files (*.json)");
-    if (!filename.isEmpty()) {
-        libraryManager->loadFromJson(filename);
+void MainWindow::loadFile(Format format, const QString fileName) {    
+    if (!fileName.isEmpty()) {
+        if (format == Format::JSON)
+            libraryManager->loadFromJson(fileName);
+        else
+            libraryManager->loadFromXML(fileName);
+        
         listView->onRefreshClicked();
     }
 }

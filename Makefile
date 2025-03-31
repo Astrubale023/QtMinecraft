@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
-INCPATH       = -I. -I. -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++
+INCPATH       = -I. -I. -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = CompilerMinecraftQt1.0.0
 DISTDIR = /home/astrubale/Progetti/CompilerMinecraftQt/.tmp/CompilerMinecraftQt1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath-link,/usr/lib/x86_64-linux-gnu
-LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt6Widgets.so /usr/lib/x86_64-linux-gnu/libQt6Gui.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so /usr/lib/x86_64-linux-gnu/libQt6Core.so -lpthread -lGLX -lOpenGL   
+LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt6Widgets.so /usr/lib/x86_64-linux-gnu/libQt6Gui.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so /usr/lib/x86_64-linux-gnu/libQt6Xml.so /usr/lib/x86_64-linux-gnu/libQt6Core.so -lpthread -lGLX -lOpenGL   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -68,7 +68,9 @@ SOURCES       = Block.cpp \
 		ObjectFactory.cpp \
 		OreBlock.cpp \
 		TypeSelectionDialog.cpp \
-		Weapon.cpp moc_FormVisitor.cpp \
+		Weapon.cpp \
+		XmlHandler.cpp \
+		XmlVisitor.cpp moc_FormVisitor.cpp \
 		moc_ListView.cpp \
 		moc_MainWindow.cpp \
 		moc_TypeSelectionDialog.cpp
@@ -89,6 +91,8 @@ OBJECTS       = Block.o \
 		OreBlock.o \
 		TypeSelectionDialog.o \
 		Weapon.o \
+		XmlHandler.o \
+		XmlVisitor.o \
 		moc_FormVisitor.o \
 		moc_ListView.o \
 		moc_MainWindow.o \
@@ -175,7 +179,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		ObjectFactory.h \
 		OreBlock.h \
 		TypeSelectionDialog.h \
-		Weapon.h Block.cpp \
+		Weapon.h \
+		XmlHandler.h \
+		XmlVisitor.h Block.cpp \
 		CardVisitor.cpp \
 		FormVisitor.cpp \
 		Item.cpp \
@@ -191,7 +197,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		ObjectFactory.cpp \
 		OreBlock.cpp \
 		TypeSelectionDialog.cpp \
-		Weapon.cpp
+		Weapon.cpp \
+		XmlHandler.cpp \
+		XmlVisitor.cpp
 QMAKE_TARGET  = CompilerMinecraftQt
 DESTDIR       = 
 TARGET        = CompilerMinecraftQt
@@ -271,6 +279,7 @@ Makefile: CompilerMinecraftQt.pro /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g+
 		CompilerMinecraftQt.pro \
 		/usr/lib/x86_64-linux-gnu/libQt6Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt6Gui.prl \
+		/usr/lib/x86_64-linux-gnu/libQt6Xml.prl \
 		/usr/lib/x86_64-linux-gnu/libQt6Core.prl
 	$(QMAKE) -o Makefile CompilerMinecraftQt.pro
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf:
@@ -341,6 +350,7 @@ Makefile: CompilerMinecraftQt.pro /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g+
 CompilerMinecraftQt.pro:
 /usr/lib/x86_64-linux-gnu/libQt6Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt6Gui.prl:
+/usr/lib/x86_64-linux-gnu/libQt6Xml.prl:
 /usr/lib/x86_64-linux-gnu/libQt6Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile CompilerMinecraftQt.pro
@@ -357,8 +367,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Block.h CardVisitor.h FormVisitor.h Item.h JsonHandler.h JsonVisitor.h LibraryManager.h LightBlock.h ListView.h MainWindow.h Material.h MinecraftObj.h MinecraftObjManager.h MinecraftObjVisitor.h ObjectFactory.h OreBlock.h TypeSelectionDialog.h Weapon.h $(DISTDIR)/
-	$(COPY_FILE) --parents Block.cpp CardVisitor.cpp FormVisitor.cpp Item.cpp JsonHandler.cpp JsonVisitor.cpp LibraryManager.cpp LightBlock.cpp ListView.cpp main.cpp MainWindow.cpp Material.cpp MinecraftObj.cpp ObjectFactory.cpp OreBlock.cpp TypeSelectionDialog.cpp Weapon.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents Block.h CardVisitor.h FormVisitor.h Item.h JsonHandler.h JsonVisitor.h LibraryManager.h LightBlock.h ListView.h MainWindow.h Material.h MinecraftObj.h MinecraftObjManager.h MinecraftObjVisitor.h ObjectFactory.h OreBlock.h TypeSelectionDialog.h Weapon.h XmlHandler.h XmlVisitor.h $(DISTDIR)/
+	$(COPY_FILE) --parents Block.cpp CardVisitor.cpp FormVisitor.cpp Item.cpp JsonHandler.cpp JsonVisitor.cpp LibraryManager.cpp LightBlock.cpp ListView.cpp main.cpp MainWindow.cpp Material.cpp MinecraftObj.cpp ObjectFactory.cpp OreBlock.cpp TypeSelectionDialog.cpp Weapon.cpp XmlHandler.cpp XmlVisitor.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -397,13 +407,13 @@ moc_FormVisitor.cpp: FormVisitor.h \
 		MinecraftObjVisitor.h \
 		moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include FormVisitor.h -o moc_FormVisitor.cpp
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include FormVisitor.h -o moc_FormVisitor.cpp
 
 moc_ListView.cpp: ListView.h \
 		MinecraftObj.h \
 		moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ListView.h -o moc_ListView.cpp
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ListView.h -o moc_ListView.cpp
 
 moc_MainWindow.cpp: MainWindow.h \
 		ListView.h \
@@ -413,15 +423,14 @@ moc_MainWindow.cpp: MainWindow.h \
 		LibraryManager.h \
 		Material.h \
 		Item.h \
-		JsonHandler.h \
 		moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.h -o moc_MainWindow.cpp
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.h -o moc_MainWindow.cpp
 
 moc_TypeSelectionDialog.cpp: TypeSelectionDialog.h \
 		moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include TypeSelectionDialog.h -o moc_TypeSelectionDialog.cpp
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include TypeSelectionDialog.h -o moc_TypeSelectionDialog.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -464,8 +473,7 @@ FormVisitor.o: FormVisitor.cpp FormVisitor.h \
 		Block.h \
 		LightBlock.h \
 		OreBlock.h \
-		LibraryManager.h \
-		JsonHandler.h
+		LibraryManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FormVisitor.o FormVisitor.cpp
 
 Item.o: Item.cpp Item.h \
@@ -500,7 +508,8 @@ LibraryManager.o: LibraryManager.cpp LibraryManager.h \
 		MinecraftObj.h \
 		Material.h \
 		Item.h \
-		JsonHandler.h
+		JsonHandler.h \
+		XmlHandler.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LibraryManager.o LibraryManager.cpp
 
 LightBlock.o: LightBlock.cpp LightBlock.h \
@@ -514,7 +523,6 @@ ListView.o: ListView.cpp ListView.h \
 		LibraryManager.h \
 		Material.h \
 		Item.h \
-		JsonHandler.h \
 		CardVisitor.h \
 		MinecraftObjVisitor.h \
 		TypeSelectionDialog.h \
@@ -528,8 +536,7 @@ main.o: main.cpp MainWindow.h \
 		MinecraftObjVisitor.h \
 		LibraryManager.h \
 		Material.h \
-		Item.h \
-		JsonHandler.h
+		Item.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 MainWindow.o: MainWindow.cpp MainWindow.h \
@@ -539,8 +546,7 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		MinecraftObjVisitor.h \
 		LibraryManager.h \
 		Material.h \
-		Item.h \
-		JsonHandler.h
+		Item.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
 
 Material.o: Material.cpp Material.h \
@@ -579,6 +585,29 @@ Weapon.o: Weapon.cpp Weapon.h \
 		Material.h \
 		MinecraftObjVisitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Weapon.o Weapon.cpp
+
+XmlHandler.o: XmlHandler.cpp XmlHandler.h \
+		MinecraftObj.h \
+		Item.h \
+		Material.h \
+		Weapon.h \
+		Block.h \
+		LightBlock.h \
+		OreBlock.h \
+		XmlVisitor.h \
+		MinecraftObjVisitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o XmlHandler.o XmlHandler.cpp
+
+XmlVisitor.o: XmlVisitor.cpp XmlVisitor.h \
+		MinecraftObjVisitor.h \
+		Item.h \
+		MinecraftObj.h \
+		Material.h \
+		Weapon.h \
+		Block.h \
+		OreBlock.h \
+		LightBlock.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o XmlVisitor.o XmlVisitor.cpp
 
 moc_FormVisitor.o: moc_FormVisitor.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_FormVisitor.o moc_FormVisitor.cpp
