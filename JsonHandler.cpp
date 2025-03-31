@@ -1,5 +1,7 @@
 #include "JsonHandler.h"
 
+#include <QDebug>
+
 #include "Item.h"
 #include "Material.h"
 #include "Weapon.h"
@@ -40,6 +42,7 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
     QJsonArray jsonArray = doc.array();
 
     // Carica prima tutti i materiali e aggiungili alla QList principale
+    QList<Material*> materials;
     for (const QJsonValue& value : jsonArray) {
         QJsonObject obj = value.toObject();
 
@@ -49,8 +52,7 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
             bool materialExists = false;
             
             // Verifica se il materiale è già nella lista
-            for (MinecraftObj* objInList : objects) {
-                Material* mat = dynamic_cast<Material*>(objInList);
+            for (Material* mat : materials) {
                 if (mat && mat->getNome() == materialName.toStdString()) {
                     materialExists = true;
                     break;
@@ -62,7 +64,7 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
                 QString img = obj["imageName"].toString();
                 Rarity rarity = Material::intToRarity(obj["rarity"].toInt());
                 Material* newMaterial = new Material(materialName.toStdString(), img.toStdString(), true, rarity);
-                objects.append(newMaterial);  // Aggiungi il materiale alla lista
+                materials.append(newMaterial);  // Aggiungi il materiale alla lista
             }
         }
     }
@@ -79,6 +81,14 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
             bool stackable = obj["stackable"].toBool();
             Item* item = new Item(name.toStdString(), img.toStdString(), stackable);
             objects.append(item);
+        } else if (type == "Material") {
+            // Verifica se il materiale è già nella lista
+            for (Material* mat : materials) {
+                if (mat && mat->getNome() == name.toStdString()) {
+                    objects.append(mat);
+                    break;
+                }
+            }
         } else if (type == "Weapon") {
             int damage = obj["damage"].toInt();
             bool stackable = obj["stackable"].toBool();
@@ -87,8 +97,7 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
             Material* material = nullptr;
 
             // Cerca il materiale nella lista
-            for (MinecraftObj* objInList : objects) {
-                Material* mat = dynamic_cast<Material*>(objInList);
+            for (Material* mat : materials) {
                 if (mat && mat->getNome() == materialName.toStdString()) {
                     material = mat;
                     break;
@@ -116,8 +125,7 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
             Material* material = nullptr;
 
             // Cerca il materiale nella lista
-            for (MinecraftObj* objInList : objects) {
-                Material* mat = dynamic_cast<Material*>(objInList);
+            for (Material* mat : materials) {
                 if (mat && mat->getNome() == materialName.toStdString()) {
                     material = mat;
                     break;

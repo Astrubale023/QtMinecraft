@@ -55,14 +55,14 @@ void XmlHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftObj
     QDomNodeList elements = root.childNodes();
 
     // Carica prima tutti i materiali
+    QList<Material*> materials;
     for (int i = 0; i < elements.size(); ++i) {
         QDomElement elem = elements.at(i).toElement();
         if (!elem.isNull() && elem.tagName() == "Material") {
             QString materialName = elem.attribute("name");
             bool materialExists = false;
 
-            for (MinecraftObj* objInList : objects) {
-                Material* mat = dynamic_cast<Material*>(objInList);
+            for (Material* mat : materials) {
                 if (mat && mat->getNome() == materialName.toStdString()) {
                     materialExists = true;
                     break;
@@ -73,7 +73,7 @@ void XmlHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftObj
                 QString img = elem.attribute("imageName");
                 Rarity rarity = Material::intToRarity(elem.attribute("rarity").toInt());
                 Material* newMaterial = new Material(materialName.toStdString(), img.toStdString(), true, rarity);
-                objects.append(newMaterial);
+                materials.append(newMaterial);
             }
         }
     }
@@ -89,14 +89,21 @@ void XmlHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftObj
             bool stackable = (elem.attribute("stackable") == "true");
             Item* item = new Item(name.toStdString(), img.toStdString(), stackable);
             objects.append(item);
+        } else if (type == "Material") {
+            // Verifica se il materiale è già nella lista
+            for (Material* mat : materials) {
+                if (mat && mat->getNome() == name.toStdString()) {
+                    objects.append(mat);
+                    break;
+                }
+            }
         } else if (type == "Weapon") {
             int damage = elem.attribute("damage").toInt();
             bool stackable = (elem.attribute("stackable") == "true");
             QString materialName = elem.attribute("material_name");
             Material* material = nullptr;
 
-            for (MinecraftObj* objInList : objects) {
-                Material* mat = dynamic_cast<Material*>(objInList);
+            for (Material* mat : materials) {
                 if (mat && mat->getNome() == materialName.toStdString()) {
                     material = mat;
                     break;
@@ -121,8 +128,7 @@ void XmlHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftObj
             QString materialName = elem.attribute("material_name");
             Material* material = nullptr;
 
-            for (MinecraftObj* objInList : objects) {
-                Material* mat = dynamic_cast<Material*>(objInList);
+            for (Material* mat : materials) {
                 if (mat && mat->getNome() == materialName.toStdString()) {
                     material = mat;
                     break;
