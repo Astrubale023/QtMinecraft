@@ -2,6 +2,7 @@
 #include <QHBoxLayout>
 #include <QDialog>
 #include <QDebug>
+#include <QStyle>
 #include "LibraryManager.h"
 #include "MinecraftObj.h"
 #include "CardVisitor.h"
@@ -17,7 +18,9 @@ ListView::ListView(LibraryManager *libraryManager, QWidget *parent)
     QHBoxLayout *topLayout = new QHBoxLayout();
     searchBar = new QLineEdit(this);
     refreshButton = new QPushButton("Aggiorna", this);
-    addButton = new QPushButton("Aggiungi", this);
+    //refreshButton->setIcon(style()->standardIcon(QStyle::SP_BrowserReload));
+    addButton = new QPushButton(this);
+    addButton->setIcon(QIcon::fromTheme("list-add"));
 
     topLayout->addWidget(searchBar);
     topLayout->addWidget(refreshButton);

@@ -1,8 +1,11 @@
 #include "CardVisitor.h"
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QPixmap>
 #include <QFrame>
+#include <QStyle>
+#include <QIcon>
 #include "Item.h"
 #include "Weapon.h"
 #include "Block.h"
@@ -50,16 +53,25 @@ void CardVisitor::createCard(const QString& name, const QString& imagePath) {
     QLabel *nameLabel = new QLabel(name);
 
     // Pulsanti
-    viewBtn = new QPushButton("Visualizza");
-    editBtn = new QPushButton("Modifica");
-    deleteBtn = new QPushButton("Elimina");
+    viewBtn = new QPushButton();
+    viewBtn->setIcon(QIcon::fromTheme("view-preview", QIcon("icons/occhio_di_sauron.png")));
+    editBtn = new QPushButton();
+    editBtn->setIcon(QIcon::fromTheme("document-edit", QIcon("icons/matitonzola.png")));
+    deleteBtn = new QPushButton();
+    deleteBtn->setIcon(QIcon::fromTheme("edit-delete"));
+
+    QHBoxLayout *btnLayout = new QHBoxLayout();
+    btnLayout->addWidget(viewBtn);
+    btnLayout->addWidget(editBtn);
+    btnLayout->addWidget(deleteBtn);
 
     // Aggiungi i widget al layout
     layout->addWidget(imageLabel, 0, Qt::AlignCenter);
     layout->addWidget(nameLabel, 0, Qt::AlignCenter);
-    layout->addWidget(viewBtn);
-    layout->addWidget(editBtn);
-    layout->addWidget(deleteBtn);
+    layout->addLayout(btnLayout, Qt::AlignRight);
+    // layout->addWidget(viewBtn);
+    // layout->addWidget(editBtn);
+    // layout->addWidget(deleteBtn);
 }
 
 QWidget* CardVisitor::getCardWidget() {
