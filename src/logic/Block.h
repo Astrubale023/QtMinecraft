@@ -9,10 +9,10 @@ private:
     int hardness;
 
 public:
-    Block(const std::string& nome = "", const std::string& imageName = "default.png",int hardness = 0);
+    Block(const std::string& nome = "", const std::string& imageName = "default.png", const int hardness = 0);
     ~Block() override = default;
 
-    Block* clone() override;
+    Block* clone() const override;
 
     // Getter
     int getHardness() const;
@@ -20,7 +20,7 @@ public:
     // Setter
     void setHardness(int newHardness);
     
-    void accept(MinecraftObjVisitor& visitor) override;
+    void accept(MinecraftObjVisitor& visitor) const override;
 };
 
 #endif // BLOCK_H

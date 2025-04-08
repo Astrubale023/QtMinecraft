@@ -54,11 +54,11 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
         QT_MOC_LITERAL(52, 3),  // "obj"
         QT_MOC_LITERAL(56, 21),  // "FormVisitor::FormMode"
         QT_MOC_LITERAL(78, 4),  // "mode"
-        QT_MOC_LITERAL(83, 8),  // "loadFile"
+        QT_MOC_LITERAL(83, 8),  // "saveFile"
         QT_MOC_LITERAL(92, 6),  // "Format"
         QT_MOC_LITERAL(99, 6),  // "format"
         QT_MOC_LITERAL(106, 8),  // "fileName"
-        QT_MOC_LITERAL(115, 8)   // "saveFile"
+        QT_MOC_LITERAL(115, 8)   // "loadFile"
     },
     "MainWindow",
     "showListView",
@@ -68,11 +68,11 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
     "obj",
     "FormVisitor::FormMode",
     "mode",
-    "loadFile",
+    "saveFile",
     "Format",
     "format",
     "fileName",
-    "saveFile"
+    "loadFile"
 };
 #undef QT_MOC_LITERAL
 } // unnamed namespace
@@ -93,7 +93,7 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
        1,    0,   38,    2, 0x08,    1 /* Private */,
        3,    2,   39,    2, 0x08,    2 /* Private */,
-       8,    2,   44,    2, 0x08,    5 /* Private */,
+       8,    2,   44,    2, 0x108,    5 /* Private | MethodIsConst  */,
       12,    2,   49,    2, 0x08,    8 /* Private */,
 
  // slots: parameters
@@ -119,15 +119,15 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'showFormView'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<MinecraftObj *, std::false_type>,
-        QtPrivate::TypeAndForceComplete<FormVisitor::FormMode, std::false_type>,
-        // method 'loadFile'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<Format, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const FormVisitor::FormMode &, std::false_type>,
         // method 'saveFile'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<Format, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString, std::false_type>
+        QtPrivate::TypeAndForceComplete<const Format &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        // method 'loadFile'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const Format &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>
     >,
     nullptr
 } };
@@ -140,8 +140,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->showListView(); break;
         case 1: _t->showFormView((*reinterpret_cast< std::add_pointer_t<MinecraftObj*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<FormVisitor::FormMode>>(_a[2]))); break;
-        case 2: _t->loadFile((*reinterpret_cast< std::add_pointer_t<Format>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
-        case 3: _t->saveFile((*reinterpret_cast< std::add_pointer_t<Format>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
+        case 2: _t->saveFile((*reinterpret_cast< std::add_pointer_t<Format>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
+        case 3: _t->loadFile((*reinterpret_cast< std::add_pointer_t<Format>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
         default: ;
         }
     }

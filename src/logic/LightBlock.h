@@ -17,10 +17,10 @@ private:
     float brightness;
 
 public: //GREEN solo perchè è l'unico colore non primario tra i 4
-    LightBlock(const std::string& nome = "", const std::string& imageName = "default.png", int hardness = 0, LightColor lightColor = LightColor::GREEN, float brightness = 0);
+    LightBlock(const std::string& nome = "", const std::string& imageName = "default.png", const int& hardness = 0, const LightColor& lightColor = LightColor::GREEN, const float& brightness = 0);
     ~LightBlock() override = default;
 
-    LightBlock* clone() override;
+    LightBlock* clone() const override;
 
     // Getter
     LightColor getLightColor() const;
@@ -31,11 +31,11 @@ public: //GREEN solo perchè è l'unico colore non primario tra i 4
     void setBrightness(float newBrightness);
 
     // Funzione per ottenere la rarità come stringa
-    static std::string colorToString(LightColor lightColor);
+    static std::string colorToString(const LightColor& lightColor);
     static LightColor stringToColor(const std::string& s);
-    static LightColor intToColor(int i);
+    static LightColor intToColor(const int& i);
     
-    void accept(MinecraftObjVisitor& visitor) override;
+    void accept(MinecraftObjVisitor& visitor) const override;
 };
 
 #endif // LIGHTBLOCK_H

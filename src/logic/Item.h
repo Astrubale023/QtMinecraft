@@ -9,10 +9,10 @@ private:
     bool stackable;
 
 public:
-    Item(const std::string& nome = "", const std::string& imageName = "default.png", bool stackable = false);
+    Item(const std::string& nome = "", const std::string& imageName = "default.png", const bool& stackable = false);
     ~Item() override = default;
 
-    Item* clone() override;
+    Item* clone() const override;
 
     // Getter
     bool isStackable() const;
@@ -20,7 +20,7 @@ public:
     // Setter
     void setStackable(bool newStackable);
     
-    void accept(MinecraftObjVisitor& visitor) override;
+    void accept(MinecraftObjVisitor& visitor) const override;
 };
 
 #endif // ITEM_H

@@ -15,7 +15,7 @@
     },
     {
         "imageName": "Lantern-1.png",
-        "name": "bob04",
+        "name": "bob404",
         "stackable": false,
         "type": "Item"
     },
@@ -30,8 +30,8 @@
     {
         "imageName": "Iron_Ingot.png",
         "name": "Ferrugipoli",
-        "rariry": "Epic",
-        "stackable": false,
+        "rariry": "Common",
+        "stackable": true,
         "type": "Material"
     }
 ]

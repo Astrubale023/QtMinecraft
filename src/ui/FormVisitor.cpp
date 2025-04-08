@@ -68,6 +68,10 @@ void FormVisitor::visit(const MinecraftObj &obj) {
     formLayout->addRow("Icona:", selectImageButton);
     formLayout->addRow(imagePreview);
 
+    if (mode == FormMode::DETAIL) {
+        saveButton->setDisabled(true);
+    }
+
     // Collega il pulsante alla funzione di selezione dell'immagine
     connect(selectImageButton, &QPushButton::clicked, this, [this, imagePreview]() {
         selectImage(imagePreview);
@@ -215,7 +219,7 @@ void FormVisitor::createLineEdit(const QString& label, const QString& key, const
     fields[key] = field;
 }
 
-void FormVisitor::createComboBox(const QString& label, const QString& key, const QStringList& options, int currentIndex) {
+void FormVisitor::createComboBox(const QString& label, const QString& key, const QStringList& options, const int& currentIndex) {
     QComboBox *field = new QComboBox();
     field->addItems(options);
     field->setCurrentIndex(currentIndex);
@@ -223,7 +227,7 @@ void FormVisitor::createComboBox(const QString& label, const QString& key, const
     fields[key] = field;
 }
 
-void FormVisitor::createSpinBox(const QString& label, const QString& key, int min, int max, int value) {
+void FormVisitor::createSpinBox(const QString& label, const QString& key, const int& min, const int& max, const int& value) {
     QSpinBox *field = new QSpinBox();
     field->setRange(min, max);
     field->setValue(value);

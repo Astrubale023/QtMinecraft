@@ -12,10 +12,10 @@ private:
     Material* material;
 
 public:
-    OreBlock(const std::string& nome = "", const std::string& imageName = "default.png", int hardness = 0, int minDrop = 0, int maxDrop = 0, Material* material = nullptr);
+    OreBlock(const std::string& nome = "", const std::string& imageName = "default.png", const int& hardness = 0, const int& minDrop = 0, const int& maxDrop = 0, Material* material = nullptr);
     ~OreBlock() override = default;
 
-    OreBlock* clone() override;
+    OreBlock* clone() const override;
 
     // Getter
     Material* getMaterial() const;
@@ -24,10 +24,10 @@ public:
 
     // Setter
     void setMaterial(Material* newMaterial);
-    void setMaxDrop(int newMaxDrop);
-    void setMinDrop(int newMinDrop);
+    void setMaxDrop(const int& newMaxDrop);
+    void setMinDrop(const int& newMinDrop);
     
-    void accept(MinecraftObjVisitor& visitor) override;
+    void accept(MinecraftObjVisitor& visitor) const override;
 };
 
 #endif // OREBLOCK_H

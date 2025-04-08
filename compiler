@@ -4,7 +4,7 @@
 qmake -project
 
 # Modifica il .pro per includere i moduli Qt e specificare output personalizzati
-sed -i "2a TARGET = MinecraftEditor" CompilerMinecraftQt.pro
+sed -i 's/^TARGET = .*/TARGET = MinecraftModManager/' CompilerMinecraftQt.pro
 sed -i "7a QT += widgets gui core xml" CompilerMinecraftQt.pro
 
 # Cartelle personalizzate per file generati

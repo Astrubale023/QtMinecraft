@@ -1,10 +1,14 @@
-\documentclass{article}
+\documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{hyperref}
 
-\title{Titolo della Relazione}
-\author{Il Tuo Nome}
+\title{\textbf{Progetto del Corso di Programmazione a Oggetti}\\\large MinecraftManager}
+\author{Nicola Simionato}
 \date{\today}
 
 \begin{document}
@@ -12,6 +16,10 @@
 \maketitle
 
 \section{Introduzione}
-Qui inizia il testo della tua relazione.
+
+\textit{MinecraftModManager} è un software sviluppato con l'obiettivo di facilitare lo sviluppo di mod per \textit{Minecraft}.  
+Sebbene la struttura interna del gioco a cui si fa riferimento sia molto più complessa e articolata rispetto all'implementazione qui proposta, il progetto si rivela comunque utile in diversi contesti.
+
+In particolare, una delle funzionalità implementate consente la generazione automatica di un file \texttt{.json} utilizzato nelle mod per la gestione delle traduzioni dei nomi di oggetti, blocchi, materiali e altri elementi di gioco.
 
 \end{document}

@@ -78,7 +78,7 @@ void MainWindow::showListView() {
     listView->onRefreshClicked();
 }
 
-void MainWindow::showFormView(MinecraftObj* obj, FormVisitor::FormMode mode) {
+void MainWindow::showFormView(MinecraftObj* obj, const FormVisitor::FormMode& mode) {
     if (currentFormView) {
         stackedWidget->removeWidget(currentFormView);
         delete currentFormView;
@@ -89,11 +89,8 @@ void MainWindow::showFormView(MinecraftObj* obj, FormVisitor::FormMode mode) {
     FormVisitor *formVisitor = new FormVisitor(mode, libraryManager);
 
     if (obj) {
-        qDebug() << "Costruzione del form";
         formVisitor->buildForm(obj); // CORRETTO: Usa buildForm() invece di obj->accept()
     }
-
-    qDebug() << "Post if della costruzione form";
 
     // Prendi il widget del form e aggiungilo alla stackedWidget
     currentFormView = formVisitor->getFormWidget();
@@ -114,7 +111,7 @@ void MainWindow::showFormView(MinecraftObj* obj, FormVisitor::FormMode mode) {
     });
 }
 
-void MainWindow::saveFile(Format format, const QString fileName) {
+void MainWindow::saveFile(const Format& format, const QString& fileName) const {
     if (!fileName.isEmpty()) {
         if (format == Format::JSON)
             libraryManager->saveToJson(fileName);
@@ -123,7 +120,7 @@ void MainWindow::saveFile(Format format, const QString fileName) {
     }
 }
 
-void MainWindow::loadFile(Format format, const QString fileName) {    
+void MainWindow::loadFile(const Format& format, const QString& fileName) {    
     if (!fileName.isEmpty()) {
         if (format == Format::JSON)
             libraryManager->loadFromJson(fileName);

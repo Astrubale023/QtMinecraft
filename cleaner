@@ -1,2 +1,0 @@
-#!/bin/bash
-rm -f *.o moc_*.cpp moc_*.h

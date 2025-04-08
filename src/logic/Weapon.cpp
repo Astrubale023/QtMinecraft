@@ -2,10 +2,10 @@
 #include "Material.h"
 #include "MinecraftObjVisitor.h"
 
-Weapon::Weapon(const std::string& nome, const std::string& imageName, bool stackable, int damage, Material* material)
+Weapon::Weapon(const std::string& nome, const std::string& imageName, const bool& stackable, const int& damage, Material* material)
     : Item(nome, imageName, stackable), damage(damage), material(material) {}
 
-Weapon* Weapon::clone() {
+Weapon* Weapon::clone() const {
     return new Weapon(*this);
 }
 
@@ -25,6 +25,6 @@ void Weapon::setMaterial(Material* newMaterial) {
     material = newMaterial;
 }
 
-void Weapon::accept(MinecraftObjVisitor& visitor) {
+void Weapon::accept(MinecraftObjVisitor& visitor) const {
     visitor.visit(*this);
 }

@@ -6,9 +6,9 @@
 //const Material Material::DIAMOND("Diamond", true, Rarity::EPIC);
 //const Material Material::DEFAULT_MAT("Default", false, Rarity::COMMON);
 
-Material::Material(const std::string& nome, const std::string& imageName, bool stackable, Rarity rarity) : Item(nome, imageName, stackable), rarity(rarity) {}
+Material::Material(const std::string& nome, const std::string& imageName, const bool& stackable, const Rarity& rarity) : Item(nome, imageName, stackable), rarity(rarity) {}
 
-Material* Material::clone() {
+Material* Material::clone() const {
     return new Material(*this);
 }
 
@@ -23,7 +23,7 @@ void Material::setRarity(int r) {
     setRarity(Material::intToRarity(r));
 }
 
-std::string Material::rarityToString(Rarity rarity) {
+std::string Material::rarityToString(const Rarity& rarity) {
     switch (rarity) {
         case Rarity::COMMON:
             return "Common";
@@ -37,7 +37,7 @@ std::string Material::rarityToString(Rarity rarity) {
             return "Sconosciuto";
     }
 }
-Rarity Material::stringToRarity(std::string s) {
+Rarity Material::stringToRarity(const std::string& s) {
     if (s == "Rare")
         return Rarity::RARE;
     if (s == "Epic")
@@ -46,7 +46,7 @@ Rarity Material::stringToRarity(std::string s) {
         return Rarity::LEGENDARY;
     return Rarity::COMMON;
 }
-Rarity Material::intToRarity(int r) {
+Rarity Material::intToRarity(const int& r) {
     switch (r) {
         case 0:
             return Rarity::COMMON;
@@ -61,6 +61,6 @@ Rarity Material::intToRarity(int r) {
     }
 }
 
-void Material::accept(MinecraftObjVisitor& visitor) {
+void Material::accept(MinecraftObjVisitor& visitor) const {
     visitor.visit(*this);
 }

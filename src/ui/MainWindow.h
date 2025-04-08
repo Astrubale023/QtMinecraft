@@ -17,9 +17,9 @@ public:
 
 private slots:
     void showListView();
-    void showFormView(MinecraftObj* obj, FormVisitor::FormMode mode);
-    void loadFile(Format format, const QString fileName);
-    void saveFile(Format format, const QString fileName);
+    void showFormView(MinecraftObj* obj, const FormVisitor::FormMode& mode);    // obj deve essere const
+    void saveFile(const Format& format, const QString& fileName) const;
+    void loadFile(const Format& format, const QString& fileName);
 
 private:
 

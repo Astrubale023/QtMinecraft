@@ -1,10 +1,10 @@
 #include "LightBlock.h"
 #include "MinecraftObjVisitor.h"
 
-LightBlock::LightBlock(const std::string& nome, const std::string& imageName, int hardness, LightColor lightColor, float brightness)
+LightBlock::LightBlock(const std::string& nome, const std::string& imageName, const int& hardness, const LightColor& lightColor, const float& brightness)
     : Block(nome, imageName, hardness), lightColor(lightColor), brightness(brightness) {}
 
-LightBlock* LightBlock::clone() {
+LightBlock* LightBlock::clone() const {
     return new LightBlock(*this);
 }
 
@@ -24,7 +24,7 @@ void LightBlock::setBrightness(float newBrightness) {
     brightness = newBrightness;
 }
 
-std::string LightBlock::colorToString(LightColor lightColor) {
+std::string LightBlock::colorToString(const LightColor& lightColor) {
     switch (lightColor) {
         case LightColor::RED:
             return "Red";
@@ -48,7 +48,7 @@ LightColor LightBlock::stringToColor(const std::string& s) {
         return LightColor::YELLOW;
     return LightColor::GREEN;
 }
-LightColor LightBlock::intToColor(int r) {
+LightColor LightBlock::intToColor(const int& r) {
     switch (r) {
         case 0:
             return LightColor::RED;
@@ -63,6 +63,6 @@ LightColor LightBlock::intToColor(int r) {
     }
 }
 
-void LightBlock::accept(MinecraftObjVisitor& visitor) {
+void LightBlock::accept(MinecraftObjVisitor& visitor) const {
     visitor.visit(*this);
 }

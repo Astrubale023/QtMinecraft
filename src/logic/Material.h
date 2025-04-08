@@ -21,21 +21,21 @@ public:
     //static const Material DIAMOND;
     static const Material DEFAULT_MAT;
 
-    explicit Material(const std::string& nome = "", const std::string& imageName = "default.png", bool stackable=false, Rarity rarity=Rarity::COMMON);
+    explicit Material(const std::string& nome = "", const std::string& imageName = "default.png", const bool& stackable=false, const Rarity& rarity=Rarity::COMMON);
     ~Material() override = default;
 
-    Material* clone() override;
+    Material* clone() const override;
 
     Rarity getRarity() const;
     void setRarity(Rarity r);
     void setRarity(int r);
 
     // Funzione per ottenere la rarità come stringa
-    static std::string rarityToString(Rarity rarita);
-    static Rarity stringToRarity(std::string s);
-    static Rarity intToRarity(int r);
+    static std::string rarityToString(const Rarity& rarita);
+    static Rarity stringToRarity(const std::string& s);
+    static Rarity intToRarity(const int& r);
     
-    void accept(MinecraftObjVisitor& visitor) override;
+    void accept(MinecraftObjVisitor& visitor) const override;
 };
 
 #endif // MATERIAL_H

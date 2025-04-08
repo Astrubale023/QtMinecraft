@@ -2,10 +2,10 @@
 #include "Material.h"
 #include "MinecraftObjVisitor.h"
 
-OreBlock::OreBlock(const std::string& nome, const std::string& imageName, int hardness, int minDrop, int maxDrop, Material* material)
+OreBlock::OreBlock(const std::string& nome, const std::string& imageName, const int& hardness, const int& minDrop, const int& maxDrop, Material* material)
     : Block(nome, imageName, hardness), minDrop(minDrop), maxDrop(maxDrop), material(material) {}
 
-OreBlock* OreBlock::clone() {
+OreBlock* OreBlock::clone() const {
     return new OreBlock(*this);
 }
 
@@ -25,14 +25,14 @@ void OreBlock::setMaterial(Material* newMaterial) {
     material = newMaterial;
 }
 
-void OreBlock::setMaxDrop(int newMaxDrop) {
+void OreBlock::setMaxDrop(const int& newMaxDrop) {
     maxDrop = newMaxDrop;
 }
 
-void OreBlock::setMinDrop(int newMinDrop) {
+void OreBlock::setMinDrop(const int& newMinDrop) {
     minDrop = newMinDrop;
 }
 
-void OreBlock::accept(MinecraftObjVisitor& visitor) {
+void OreBlock::accept(MinecraftObjVisitor& visitor) const {
     visitor.visit(*this);
 }

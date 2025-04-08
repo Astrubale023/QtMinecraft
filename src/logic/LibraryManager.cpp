@@ -16,7 +16,7 @@ void LibraryManager::addObject(MinecraftObj* obj) {
     }
 }
 
-void LibraryManager::updateObject(MinecraftObj* oldObj, MinecraftObj* newObj) {
+void LibraryManager::updateObject(const MinecraftObj* oldObj, MinecraftObj* newObj) {
     int index = objects.indexOf(oldObj);
     if (index != -1 && newObj) {
         delete objects[index];  // Cancella il vecchio oggetto
@@ -24,7 +24,7 @@ void LibraryManager::updateObject(MinecraftObj* oldObj, MinecraftObj* newObj) {
     }
 }
 
-void LibraryManager::deleteObject(MinecraftObj* obj) {
+void LibraryManager::deleteObject(const MinecraftObj* obj) {
     if (objects.removeOne(obj)) {
         delete obj;  // Cancella l'oggetto dalla memoria
     }
@@ -61,7 +61,7 @@ QList<MinecraftObj*> LibraryManager::filterObjectsByName(const QString& filter) 
     return filteredObjects;
 }
 
-void LibraryManager::saveToJson(const QString& filename) {
+void LibraryManager::saveToJson(const QString& filename) const {
     JsonHandler::saveObjectsToFile(filename, objects);
 }
 
@@ -71,7 +71,7 @@ void LibraryManager::loadFromJson(const QString& filename) {
     JsonHandler::loadObjectsFromFile(filename, objects);
 }
 
-void LibraryManager::saveToXML(const QString& filename) {
+void LibraryManager::saveToXML(const QString& filename) const {
     XmlHandler::saveObjectsToFile(filename, objects);
 }
 

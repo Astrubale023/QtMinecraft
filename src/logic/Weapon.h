@@ -11,10 +11,10 @@ private:
     Material* material;
 
 public://qui const_cast perchè dereferenziondo DEFAULT_MAT mi da un puntatore a const e a noi conveniva così
-    Weapon(const std::string& nome = "", const std::string& imageName = "default.png", bool stackable=false, int damage = 0, Material* material = nullptr);
+    Weapon(const std::string& nome = "", const std::string& imageName = "default.png", const bool& stackable=false, const int& damage = 0, Material* material = nullptr);
     ~Weapon() override = default;
 
-    Weapon* clone() override;
+    Weapon* clone() const override;
 
     // Getter
     int getDamage() const;
@@ -24,6 +24,6 @@ public://qui const_cast perchè dereferenziondo DEFAULT_MAT mi da un puntatore a
     void setDamage(int damage);
     void setMaterial(Material* newMaterial);
     
-    void accept(MinecraftObjVisitor& visitor) override;
+    void accept(MinecraftObjVisitor& visitor) const override;
 };
 #endif // WEAPON_H

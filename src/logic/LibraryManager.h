@@ -14,18 +14,18 @@ public:
     ~LibraryManager();
 
     void addObject(MinecraftObj* obj);
-    void updateObject(MinecraftObj* oldObj, MinecraftObj* newObj);
-    void deleteObject(MinecraftObj* obj);
+    void updateObject(const MinecraftObj* oldObj, MinecraftObj* newObj);
+    void deleteObject(const MinecraftObj* obj);
 
     const QList<MinecraftObj*>& getObjects() const;
     const QList<Material*> getMaterials() const;
     MinecraftObj* getItem(MinecraftObj* obj) const;
     QList<MinecraftObj*> filterObjectsByName(const QString& filter) const;
 
-    void saveToJson(const QString& filename);
+    void saveToJson(const QString& filename) const;
     void loadFromJson(const QString& filename);
 
-    void saveToXML(const QString& filename);
+    void saveToXML(const QString& filename) const;
     void loadFromXML(const QString& filename);
 };
 

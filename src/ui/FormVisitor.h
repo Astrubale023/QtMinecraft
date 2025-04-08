@@ -52,8 +52,8 @@ private:
     void visit(const MinecraftObj &obj);
 
     void createLineEdit(const QString& label, const QString& key, const QString& value);
-    void createComboBox(const QString& label, const QString& key, const QStringList& options, int currentIndex);
-    void createSpinBox(const QString& label, const QString& key, int min, int max, int value);
+    void createComboBox(const QString& label, const QString& key, const QStringList& options, const int& currentIndex);
+    void createSpinBox(const QString& label, const QString& key, const int& min, const int& max, const int& value);
     void selectImage(QLabel* previewLabel);
     
     QString getLineEditValue(const QString& key) const;

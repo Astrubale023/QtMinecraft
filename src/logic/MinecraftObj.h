@@ -8,7 +8,7 @@ class MinecraftObj {
 public:
     MinecraftObj(const std::string& nome, const std::string& imageName);
     virtual ~MinecraftObj() = default;
-    virtual MinecraftObj* clone() = 0;
+    virtual MinecraftObj* clone() const = 0;
 
     std::string getNome() const;
     void setNome(const std::string& nuovoNome);
@@ -16,7 +16,7 @@ public:
     std::string getImage() const;
     void setImage(const std::string& newImage);
 
-    virtual void accept(MinecraftObjVisitor& visitor) = 0;
+    virtual void accept(MinecraftObjVisitor& visitor) const = 0;
 
 private:
     std::string nome;
