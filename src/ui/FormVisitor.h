@@ -9,7 +9,7 @@
 #include <QSpinBox>
 #include <QMap>
 #include <QLabel>
-#include "MinecraftObjVisitor.h"
+#include "../logic/MinecraftObjVisitor.h"
 
 class LibraryManager;
 class MinecraftObj;

@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
-INCPATH       = -I. -I. -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++
+INCPATH       = -I. -I. -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -Ibuild/moc -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = CompilerMinecraftQt1.0.0
-DISTDIR = /home/astrubale/Progetti/CompilerMinecraftQt/.tmp/CompilerMinecraftQt1.0.0
+DISTDIR = /home/astrubale/Progetti/CompilerMinecraftQt/build/obj/CompilerMinecraftQt1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath-link,/usr/lib/x86_64-linux-gnu
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt6Widgets.so /usr/lib/x86_64-linux-gnu/libQt6Gui.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so /usr/lib/x86_64-linux-gnu/libQt6Xml.so /usr/lib/x86_64-linux-gnu/libQt6Core.so -lpthread -lGLX -lOpenGL   
@@ -48,55 +48,55 @@ STRIP         = strip
 
 ####### Output directory
 
-OBJECTS_DIR   = ./
+OBJECTS_DIR   = build/obj/
 
 ####### Files
 
-SOURCES       = Block.cpp \
-		CardVisitor.cpp \
-		FormVisitor.cpp \
-		Item.cpp \
-		JsonHandler.cpp \
-		JsonVisitor.cpp \
-		LibraryManager.cpp \
-		LightBlock.cpp \
-		ListView.cpp \
-		main.cpp \
-		MainWindow.cpp \
-		Material.cpp \
-		MinecraftObj.cpp \
-		ObjectFactory.cpp \
-		OreBlock.cpp \
-		TypeSelectionDialog.cpp \
-		Weapon.cpp \
-		XmlHandler.cpp \
-		XmlVisitor.cpp moc_FormVisitor.cpp \
-		moc_ListView.cpp \
-		moc_MainWindow.cpp \
-		moc_TypeSelectionDialog.cpp
-OBJECTS       = Block.o \
-		CardVisitor.o \
-		FormVisitor.o \
-		Item.o \
-		JsonHandler.o \
-		JsonVisitor.o \
-		LibraryManager.o \
-		LightBlock.o \
-		ListView.o \
-		main.o \
-		MainWindow.o \
-		Material.o \
-		MinecraftObj.o \
-		ObjectFactory.o \
-		OreBlock.o \
-		TypeSelectionDialog.o \
-		Weapon.o \
-		XmlHandler.o \
-		XmlVisitor.o \
-		moc_FormVisitor.o \
-		moc_ListView.o \
-		moc_MainWindow.o \
-		moc_TypeSelectionDialog.o
+SOURCES       = src/main.cpp \
+		src/logic/Block.cpp \
+		src/logic/Item.cpp \
+		src/logic/JsonHandler.cpp \
+		src/logic/JsonVisitor.cpp \
+		src/logic/LibraryManager.cpp \
+		src/logic/LightBlock.cpp \
+		src/logic/Material.cpp \
+		src/logic/MinecraftObj.cpp \
+		src/logic/ObjectFactory.cpp \
+		src/logic/OreBlock.cpp \
+		src/logic/Weapon.cpp \
+		src/logic/XmlHandler.cpp \
+		src/logic/XmlVisitor.cpp \
+		src/ui/CardVisitor.cpp \
+		src/ui/FormVisitor.cpp \
+		src/ui/ListView.cpp \
+		src/ui/MainWindow.cpp \
+		src/ui/TypeSelectionDialog.cpp build/moc/moc_FormVisitor.cpp \
+		build/moc/moc_ListView.cpp \
+		build/moc/moc_MainWindow.cpp \
+		build/moc/moc_TypeSelectionDialog.cpp
+OBJECTS       = build/obj/main.o \
+		build/obj/Block.o \
+		build/obj/Item.o \
+		build/obj/JsonHandler.o \
+		build/obj/JsonVisitor.o \
+		build/obj/LibraryManager.o \
+		build/obj/LightBlock.o \
+		build/obj/Material.o \
+		build/obj/MinecraftObj.o \
+		build/obj/ObjectFactory.o \
+		build/obj/OreBlock.o \
+		build/obj/Weapon.o \
+		build/obj/XmlHandler.o \
+		build/obj/XmlVisitor.o \
+		build/obj/CardVisitor.o \
+		build/obj/FormVisitor.o \
+		build/obj/ListView.o \
+		build/obj/MainWindow.o \
+		build/obj/TypeSelectionDialog.o \
+		build/obj/moc_FormVisitor.o \
+		build/obj/moc_ListView.o \
+		build/obj/moc_MainWindow.o \
+		build/obj/moc_TypeSelectionDialog.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/common/linux.conf \
@@ -162,44 +162,44 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/lex.prf \
-		CompilerMinecraftQt.pro Block.h \
-		CardVisitor.h \
-		FormVisitor.h \
-		Item.h \
-		JsonHandler.h \
-		JsonVisitor.h \
-		LibraryManager.h \
-		LightBlock.h \
-		ListView.h \
-		MainWindow.h \
-		Material.h \
-		MinecraftObj.h \
-		MinecraftObjManager.h \
-		MinecraftObjVisitor.h \
-		ObjectFactory.h \
-		OreBlock.h \
-		TypeSelectionDialog.h \
-		Weapon.h \
-		XmlHandler.h \
-		XmlVisitor.h Block.cpp \
-		CardVisitor.cpp \
-		FormVisitor.cpp \
-		Item.cpp \
-		JsonHandler.cpp \
-		JsonVisitor.cpp \
-		LibraryManager.cpp \
-		LightBlock.cpp \
-		ListView.cpp \
-		main.cpp \
-		MainWindow.cpp \
-		Material.cpp \
-		MinecraftObj.cpp \
-		ObjectFactory.cpp \
-		OreBlock.cpp \
-		TypeSelectionDialog.cpp \
-		Weapon.cpp \
-		XmlHandler.cpp \
-		XmlVisitor.cpp
+		CompilerMinecraftQt.pro src/logic/Block.h \
+		src/logic/Item.h \
+		src/logic/JsonHandler.h \
+		src/logic/JsonVisitor.h \
+		src/logic/LibraryManager.h \
+		src/logic/LightBlock.h \
+		src/logic/Material.h \
+		src/logic/MinecraftObj.h \
+		src/logic/MinecraftObjManager.h \
+		src/logic/MinecraftObjVisitor.h \
+		src/logic/ObjectFactory.h \
+		src/logic/OreBlock.h \
+		src/logic/Weapon.h \
+		src/logic/XmlHandler.h \
+		src/logic/XmlVisitor.h \
+		src/ui/CardVisitor.h \
+		src/ui/FormVisitor.h \
+		src/ui/ListView.h \
+		src/ui/MainWindow.h \
+		src/ui/TypeSelectionDialog.h src/main.cpp \
+		src/logic/Block.cpp \
+		src/logic/Item.cpp \
+		src/logic/JsonHandler.cpp \
+		src/logic/JsonVisitor.cpp \
+		src/logic/LibraryManager.cpp \
+		src/logic/LightBlock.cpp \
+		src/logic/Material.cpp \
+		src/logic/MinecraftObj.cpp \
+		src/logic/ObjectFactory.cpp \
+		src/logic/OreBlock.cpp \
+		src/logic/Weapon.cpp \
+		src/logic/XmlHandler.cpp \
+		src/logic/XmlVisitor.cpp \
+		src/ui/CardVisitor.cpp \
+		src/ui/FormVisitor.cpp \
+		src/ui/ListView.cpp \
+		src/ui/MainWindow.cpp \
+		src/ui/TypeSelectionDialog.cpp
 QMAKE_TARGET  = CompilerMinecraftQt
 DESTDIR       = 
 TARGET        = CompilerMinecraftQt
@@ -367,8 +367,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Block.h CardVisitor.h FormVisitor.h Item.h JsonHandler.h JsonVisitor.h LibraryManager.h LightBlock.h ListView.h MainWindow.h Material.h MinecraftObj.h MinecraftObjManager.h MinecraftObjVisitor.h ObjectFactory.h OreBlock.h TypeSelectionDialog.h Weapon.h XmlHandler.h XmlVisitor.h $(DISTDIR)/
-	$(COPY_FILE) --parents Block.cpp CardVisitor.cpp FormVisitor.cpp Item.cpp JsonHandler.cpp JsonVisitor.cpp LibraryManager.cpp LightBlock.cpp ListView.cpp main.cpp MainWindow.cpp Material.cpp MinecraftObj.cpp ObjectFactory.cpp OreBlock.cpp TypeSelectionDialog.cpp Weapon.cpp XmlHandler.cpp XmlVisitor.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/logic/Block.h src/logic/Item.h src/logic/JsonHandler.h src/logic/JsonVisitor.h src/logic/LibraryManager.h src/logic/LightBlock.h src/logic/Material.h src/logic/MinecraftObj.h src/logic/MinecraftObjManager.h src/logic/MinecraftObjVisitor.h src/logic/ObjectFactory.h src/logic/OreBlock.h src/logic/Weapon.h src/logic/XmlHandler.h src/logic/XmlVisitor.h src/ui/CardVisitor.h src/ui/FormVisitor.h src/ui/ListView.h src/ui/MainWindow.h src/ui/TypeSelectionDialog.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/logic/Block.cpp src/logic/Item.cpp src/logic/JsonHandler.cpp src/logic/JsonVisitor.cpp src/logic/LibraryManager.cpp src/logic/LightBlock.cpp src/logic/Material.cpp src/logic/MinecraftObj.cpp src/logic/ObjectFactory.cpp src/logic/OreBlock.cpp src/logic/Weapon.cpp src/logic/XmlHandler.cpp src/logic/XmlVisitor.cpp src/ui/CardVisitor.cpp src/ui/FormVisitor.cpp src/ui/ListView.cpp src/ui/MainWindow.cpp src/ui/TypeSelectionDialog.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -394,43 +394,43 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_predefs_make_all: moc_predefs.h
+compiler_moc_predefs_make_all: build/moc/moc_predefs.h
 compiler_moc_predefs_clean:
-	-$(DEL_FILE) moc_predefs.h
-moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
-	g++ -pipe -O2 -Wall -Wextra -fPIC -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
+	-$(DEL_FILE) build/moc/moc_predefs.h
+build/moc/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
+	g++ -pipe -O2 -Wall -Wextra -fPIC -dM -E -o build/moc/moc_predefs.h /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_FormVisitor.cpp moc_ListView.cpp moc_MainWindow.cpp moc_TypeSelectionDialog.cpp
+compiler_moc_header_make_all: build/moc/moc_FormVisitor.cpp build/moc/moc_ListView.cpp build/moc/moc_MainWindow.cpp build/moc/moc_TypeSelectionDialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_FormVisitor.cpp moc_ListView.cpp moc_MainWindow.cpp moc_TypeSelectionDialog.cpp
-moc_FormVisitor.cpp: FormVisitor.h \
-		MinecraftObjVisitor.h \
-		moc_predefs.h \
+	-$(DEL_FILE) build/moc/moc_FormVisitor.cpp build/moc/moc_ListView.cpp build/moc/moc_MainWindow.cpp build/moc/moc_TypeSelectionDialog.cpp
+build/moc/moc_FormVisitor.cpp: src/ui/FormVisitor.h \
+		src/logic/MinecraftObjVisitor.h \
+		build/moc/moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include FormVisitor.h -o moc_FormVisitor.cpp
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/build/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include src/ui/FormVisitor.h -o build/moc/moc_FormVisitor.cpp
 
-moc_ListView.cpp: ListView.h \
-		MinecraftObj.h \
-		moc_predefs.h \
+build/moc/moc_ListView.cpp: src/ui/ListView.h \
+		src/logic/MinecraftObj.h \
+		build/moc/moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ListView.h -o moc_ListView.cpp
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/build/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include src/ui/ListView.h -o build/moc/moc_ListView.cpp
 
-moc_MainWindow.cpp: MainWindow.h \
-		ListView.h \
-		MinecraftObj.h \
-		FormVisitor.h \
-		MinecraftObjVisitor.h \
-		LibraryManager.h \
-		Material.h \
-		Item.h \
-		moc_predefs.h \
+build/moc/moc_MainWindow.cpp: src/ui/MainWindow.h \
+		src/ui/ListView.h \
+		src/logic/MinecraftObj.h \
+		src/ui/FormVisitor.h \
+		src/logic/MinecraftObjVisitor.h \
+		src/logic/LibraryManager.h \
+		src/logic/Material.h \
+		src/logic/Item.h \
+		build/moc/moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.h -o moc_MainWindow.cpp
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/build/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include src/ui/MainWindow.h -o build/moc/moc_MainWindow.cpp
 
-moc_TypeSelectionDialog.cpp: TypeSelectionDialog.h \
-		moc_predefs.h \
+build/moc/moc_TypeSelectionDialog.cpp: src/ui/TypeSelectionDialog.h \
+		build/moc/moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include TypeSelectionDialog.h -o moc_TypeSelectionDialog.cpp
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/astrubale/Progetti/CompilerMinecraftQt/build/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/astrubale/Progetti/CompilerMinecraftQt -I/home/astrubale/Progetti/CompilerMinecraftQt -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtXml -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include src/ui/TypeSelectionDialog.h -o build/moc/moc_TypeSelectionDialog.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -448,178 +448,171 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-Block.o: Block.cpp Block.h \
-		MinecraftObj.h \
-		MinecraftObjVisitor.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Block.o Block.cpp
+build/obj/main.o: src/main.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/main.o src/main.cpp
 
-CardVisitor.o: CardVisitor.cpp CardVisitor.h \
-		MinecraftObjVisitor.h \
-		Item.h \
-		MinecraftObj.h \
-		Weapon.h \
-		Material.h \
-		Block.h \
-		LightBlock.h \
-		OreBlock.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CardVisitor.o CardVisitor.cpp
+build/obj/Block.o: src/logic/Block.cpp src/logic/Block.h \
+		src/logic/MinecraftObj.h \
+		src/logic/MinecraftObjVisitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/Block.o src/logic/Block.cpp
 
-FormVisitor.o: FormVisitor.cpp FormVisitor.h \
-		MinecraftObjVisitor.h \
-		MinecraftObj.h \
-		Item.h \
-		Weapon.h \
-		Material.h \
-		Block.h \
-		LightBlock.h \
-		OreBlock.h \
-		LibraryManager.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FormVisitor.o FormVisitor.cpp
+build/obj/Item.o: src/logic/Item.cpp src/logic/Item.h \
+		src/logic/MinecraftObj.h \
+		src/logic/MinecraftObjVisitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/Item.o src/logic/Item.cpp
 
-Item.o: Item.cpp Item.h \
-		MinecraftObj.h \
-		MinecraftObjVisitor.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Item.o Item.cpp
+build/obj/JsonHandler.o: src/logic/JsonHandler.cpp src/logic/JsonHandler.h \
+		src/logic/Item.h \
+		src/logic/MinecraftObj.h \
+		src/logic/Material.h \
+		src/logic/Weapon.h \
+		src/logic/Block.h \
+		src/logic/LightBlock.h \
+		src/logic/OreBlock.h \
+		src/logic/JsonVisitor.h \
+		src/logic/MinecraftObjVisitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/JsonHandler.o src/logic/JsonHandler.cpp
 
-JsonHandler.o: JsonHandler.cpp JsonHandler.h \
-		Item.h \
-		MinecraftObj.h \
-		Material.h \
-		Weapon.h \
-		Block.h \
-		LightBlock.h \
-		OreBlock.h \
-		JsonVisitor.h \
-		MinecraftObjVisitor.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o JsonHandler.o JsonHandler.cpp
+build/obj/JsonVisitor.o: src/logic/JsonVisitor.cpp src/logic/JsonVisitor.h \
+		src/logic/MinecraftObjVisitor.h \
+		src/logic/Item.h \
+		src/logic/MinecraftObj.h \
+		src/logic/Material.h \
+		src/logic/Weapon.h \
+		src/logic/Block.h \
+		src/logic/OreBlock.h \
+		src/logic/LightBlock.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/JsonVisitor.o src/logic/JsonVisitor.cpp
 
-JsonVisitor.o: JsonVisitor.cpp JsonVisitor.h \
-		MinecraftObjVisitor.h \
-		Item.h \
-		MinecraftObj.h \
-		Material.h \
-		Weapon.h \
-		Block.h \
-		OreBlock.h \
-		LightBlock.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o JsonVisitor.o JsonVisitor.cpp
+build/obj/LibraryManager.o: src/logic/LibraryManager.cpp src/logic/LibraryManager.h \
+		src/logic/MinecraftObj.h \
+		src/logic/Material.h \
+		src/logic/Item.h \
+		src/logic/JsonHandler.h \
+		src/logic/XmlHandler.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/LibraryManager.o src/logic/LibraryManager.cpp
 
-LibraryManager.o: LibraryManager.cpp LibraryManager.h \
-		MinecraftObj.h \
-		Material.h \
-		Item.h \
-		JsonHandler.h \
-		XmlHandler.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LibraryManager.o LibraryManager.cpp
+build/obj/LightBlock.o: src/logic/LightBlock.cpp src/logic/LightBlock.h \
+		src/logic/Block.h \
+		src/logic/MinecraftObj.h \
+		src/logic/MinecraftObjVisitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/LightBlock.o src/logic/LightBlock.cpp
 
-LightBlock.o: LightBlock.cpp LightBlock.h \
-		Block.h \
-		MinecraftObj.h \
-		MinecraftObjVisitor.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LightBlock.o LightBlock.cpp
+build/obj/Material.o: src/logic/Material.cpp src/logic/Material.h \
+		src/logic/Item.h \
+		src/logic/MinecraftObj.h \
+		src/logic/MinecraftObjVisitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/Material.o src/logic/Material.cpp
 
-ListView.o: ListView.cpp ListView.h \
-		MinecraftObj.h \
-		LibraryManager.h \
-		Material.h \
-		Item.h \
-		CardVisitor.h \
-		MinecraftObjVisitor.h \
-		TypeSelectionDialog.h \
-		ObjectFactory.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ListView.o ListView.cpp
+build/obj/MinecraftObj.o: src/logic/MinecraftObj.cpp src/logic/MinecraftObj.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/MinecraftObj.o src/logic/MinecraftObj.cpp
 
-main.o: main.cpp MainWindow.h \
-		ListView.h \
-		MinecraftObj.h \
-		FormVisitor.h \
-		MinecraftObjVisitor.h \
-		LibraryManager.h \
-		Material.h \
-		Item.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
+build/obj/ObjectFactory.o: src/logic/ObjectFactory.cpp src/logic/ObjectFactory.h \
+		src/logic/MinecraftObj.h \
+		src/logic/Item.h \
+		src/logic/Block.h \
+		src/logic/OreBlock.h \
+		src/logic/Material.h \
+		src/logic/LightBlock.h \
+		src/logic/Weapon.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/ObjectFactory.o src/logic/ObjectFactory.cpp
 
-MainWindow.o: MainWindow.cpp MainWindow.h \
-		ListView.h \
-		MinecraftObj.h \
-		FormVisitor.h \
-		MinecraftObjVisitor.h \
-		LibraryManager.h \
-		Material.h \
-		Item.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
+build/obj/OreBlock.o: src/logic/OreBlock.cpp src/logic/OreBlock.h \
+		src/logic/Block.h \
+		src/logic/MinecraftObj.h \
+		src/logic/Material.h \
+		src/logic/Item.h \
+		src/logic/MinecraftObjVisitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/OreBlock.o src/logic/OreBlock.cpp
 
-Material.o: Material.cpp Material.h \
-		Item.h \
-		MinecraftObj.h \
-		MinecraftObjVisitor.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Material.o Material.cpp
+build/obj/Weapon.o: src/logic/Weapon.cpp src/logic/Weapon.h \
+		src/logic/Item.h \
+		src/logic/MinecraftObj.h \
+		src/logic/Material.h \
+		src/logic/MinecraftObjVisitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/Weapon.o src/logic/Weapon.cpp
 
-MinecraftObj.o: MinecraftObj.cpp MinecraftObj.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MinecraftObj.o MinecraftObj.cpp
+build/obj/XmlHandler.o: src/logic/XmlHandler.cpp src/logic/XmlHandler.h \
+		src/logic/MinecraftObj.h \
+		src/logic/Item.h \
+		src/logic/Material.h \
+		src/logic/Weapon.h \
+		src/logic/Block.h \
+		src/logic/LightBlock.h \
+		src/logic/OreBlock.h \
+		src/logic/XmlVisitor.h \
+		src/logic/MinecraftObjVisitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/XmlHandler.o src/logic/XmlHandler.cpp
 
-ObjectFactory.o: ObjectFactory.cpp ObjectFactory.h \
-		MinecraftObj.h \
-		Item.h \
-		Block.h \
-		OreBlock.h \
-		Material.h \
-		LightBlock.h \
-		Weapon.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ObjectFactory.o ObjectFactory.cpp
+build/obj/XmlVisitor.o: src/logic/XmlVisitor.cpp src/logic/XmlVisitor.h \
+		src/logic/MinecraftObjVisitor.h \
+		src/logic/Item.h \
+		src/logic/MinecraftObj.h \
+		src/logic/Material.h \
+		src/logic/Weapon.h \
+		src/logic/Block.h \
+		src/logic/OreBlock.h \
+		src/logic/LightBlock.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/XmlVisitor.o src/logic/XmlVisitor.cpp
 
-OreBlock.o: OreBlock.cpp OreBlock.h \
-		Block.h \
-		MinecraftObj.h \
-		Material.h \
-		Item.h \
-		MinecraftObjVisitor.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OreBlock.o OreBlock.cpp
+build/obj/CardVisitor.o: src/ui/CardVisitor.cpp src/ui/CardVisitor.h \
+		src/logic/MinecraftObjVisitor.h \
+		src/logic/Item.h \
+		src/logic/MinecraftObj.h \
+		src/logic/Weapon.h \
+		src/logic/Material.h \
+		src/logic/Block.h \
+		src/logic/LightBlock.h \
+		src/logic/OreBlock.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/CardVisitor.o src/ui/CardVisitor.cpp
 
-TypeSelectionDialog.o: TypeSelectionDialog.cpp TypeSelectionDialog.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TypeSelectionDialog.o TypeSelectionDialog.cpp
+build/obj/FormVisitor.o: src/ui/FormVisitor.cpp src/ui/FormVisitor.h \
+		src/logic/MinecraftObjVisitor.h \
+		src/logic/MinecraftObj.h \
+		src/logic/Item.h \
+		src/logic/Weapon.h \
+		src/logic/Material.h \
+		src/logic/Block.h \
+		src/logic/LightBlock.h \
+		src/logic/OreBlock.h \
+		src/logic/LibraryManager.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/FormVisitor.o src/ui/FormVisitor.cpp
 
-Weapon.o: Weapon.cpp Weapon.h \
-		Item.h \
-		MinecraftObj.h \
-		Material.h \
-		MinecraftObjVisitor.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Weapon.o Weapon.cpp
+build/obj/ListView.o: src/ui/ListView.cpp src/ui/ListView.h \
+		src/logic/MinecraftObj.h \
+		src/logic/LibraryManager.h \
+		src/logic/Material.h \
+		src/logic/Item.h \
+		src/ui/CardVisitor.h \
+		src/logic/MinecraftObjVisitor.h \
+		src/ui/TypeSelectionDialog.h \
+		src/logic/ObjectFactory.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/ListView.o src/ui/ListView.cpp
 
-XmlHandler.o: XmlHandler.cpp XmlHandler.h \
-		MinecraftObj.h \
-		Item.h \
-		Material.h \
-		Weapon.h \
-		Block.h \
-		LightBlock.h \
-		OreBlock.h \
-		XmlVisitor.h \
-		MinecraftObjVisitor.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o XmlHandler.o XmlHandler.cpp
+build/obj/MainWindow.o: src/ui/MainWindow.cpp src/ui/MainWindow.h \
+		src/ui/ListView.h \
+		src/logic/MinecraftObj.h \
+		src/ui/FormVisitor.h \
+		src/logic/MinecraftObjVisitor.h \
+		src/logic/LibraryManager.h \
+		src/logic/Material.h \
+		src/logic/Item.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/MainWindow.o src/ui/MainWindow.cpp
 
-XmlVisitor.o: XmlVisitor.cpp XmlVisitor.h \
-		MinecraftObjVisitor.h \
-		Item.h \
-		MinecraftObj.h \
-		Material.h \
-		Weapon.h \
-		Block.h \
-		OreBlock.h \
-		LightBlock.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o XmlVisitor.o XmlVisitor.cpp
+build/obj/TypeSelectionDialog.o: src/ui/TypeSelectionDialog.cpp src/ui/TypeSelectionDialog.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/TypeSelectionDialog.o src/ui/TypeSelectionDialog.cpp
 
-moc_FormVisitor.o: moc_FormVisitor.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_FormVisitor.o moc_FormVisitor.cpp
+build/obj/moc_FormVisitor.o: build/moc/moc_FormVisitor.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/moc_FormVisitor.o build/moc/moc_FormVisitor.cpp
 
-moc_ListView.o: moc_ListView.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ListView.o moc_ListView.cpp
+build/obj/moc_ListView.o: build/moc/moc_ListView.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/moc_ListView.o build/moc/moc_ListView.cpp
 
-moc_MainWindow.o: moc_MainWindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp
+build/obj/moc_MainWindow.o: build/moc/moc_MainWindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/moc_MainWindow.o build/moc/moc_MainWindow.cpp
 
-moc_TypeSelectionDialog.o: moc_TypeSelectionDialog.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_TypeSelectionDialog.o moc_TypeSelectionDialog.cpp
+build/obj/moc_TypeSelectionDialog.o: build/moc/moc_TypeSelectionDialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/moc_TypeSelectionDialog.o build/moc/moc_TypeSelectionDialog.cpp
 
 ####### Install
 

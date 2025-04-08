@@ -1,7 +1,7 @@
 #ifndef CARDVISITOR_H
 #define CARDVISITOR_H
 
-#include "MinecraftObjVisitor.h"
+#include "../logic/MinecraftObjVisitor.h"
 #include <QString>
 #include <QWidget>
 #include <QPushButton>

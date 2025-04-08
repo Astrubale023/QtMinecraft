@@ -3,11 +3,11 @@
 #include <QDialog>
 #include <QDebug>
 #include <QStyle>
-#include "LibraryManager.h"
-#include "MinecraftObj.h"
+#include "../logic/LibraryManager.h"
+#include "../logic/MinecraftObj.h"
 #include "CardVisitor.h"
 #include "TypeSelectionDialog.h"
-#include "ObjectFactory.h"
+#include "../logic/ObjectFactory.h"
 
 ListView::ListView(LibraryManager *libraryManager, QWidget *parent)
     : QWidget(parent), libraryManager(libraryManager), columnCount(3) { // Inizialmente 3 colonne

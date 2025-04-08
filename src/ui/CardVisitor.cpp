@@ -6,11 +6,11 @@
 #include <QFrame>
 #include <QStyle>
 #include <QIcon>
-#include "Item.h"
-#include "Weapon.h"
-#include "Block.h"
-#include "LightBlock.h"
-#include "OreBlock.h"
+#include "../logic/Item.h"
+#include "../logic/Weapon.h"
+#include "../logic/Block.h"
+#include "../logic/LightBlock.h"
+#include "../logic/OreBlock.h"
 
 void CardVisitor::visit(const Item& item) {
     createCard(QString::fromStdString(item.getNome() + " | Item"), QString::fromStdString("icons/"+item.getImage()));  // Usa riferimento

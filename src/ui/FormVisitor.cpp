@@ -7,13 +7,13 @@
 #include <QDir>
 #include <QLabel>
 #include <QFileDialog>
-#include "MinecraftObj.h"
-#include "Item.h"
-#include "Weapon.h"
-#include "Block.h"
-#include "LightBlock.h"
-#include "OreBlock.h"
-#include "LibraryManager.h"
+#include "../logic/MinecraftObj.h"
+#include "../logic/Item.h"
+#include "../logic/Weapon.h"
+#include "../logic/Block.h"
+#include "../logic/LightBlock.h"
+#include "../logic/OreBlock.h"
+#include "../logic/LibraryManager.h"
 
 FormVisitor::FormVisitor(FormMode mode, LibraryManager* libraryManager, QWidget *parent)
     : QWidget(parent), mode(mode), libraryManager(libraryManager), currentObj(nullptr) {

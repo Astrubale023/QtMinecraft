@@ -8,7 +8,7 @@
 #include <QGridLayout>
 #include <QScrollArea>
 #include <QMessageBox>
-#include "MinecraftObj.h"
+#include "../logic/MinecraftObj.h"
 
 class LibraryManager;
 

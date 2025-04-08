@@ -5,7 +5,7 @@
 #include <QStackedWidget>
 #include "ListView.h"
 #include "FormVisitor.h"
-#include "LibraryManager.h"
+#include "../logic/LibraryManager.h"
 
 enum class Format{ JSON, XML };
 
