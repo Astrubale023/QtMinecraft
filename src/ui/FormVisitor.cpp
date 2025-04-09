@@ -60,8 +60,9 @@ void FormVisitor::visit(const MinecraftObj &obj) {
     imagePreview->setFixedSize(100, 100); // Dimensione anteprima
 
     // Controlla se l'oggetto ha già un'icona salvata
-    QString imagePath = QString::fromStdString(obj.getImage());
+    QString imagePath = QString::fromStdString("icons/"+obj.getImage());
     if (!imagePath.isEmpty() && QFile::exists(imagePath)) {
+        qDebug() << "ora qui";
         imagePreview->setPixmap(QPixmap(imagePath).scaled(100, 100, Qt::KeepAspectRatio));
     }
 
@@ -69,7 +70,7 @@ void FormVisitor::visit(const MinecraftObj &obj) {
     formLayout->addRow(imagePreview);
 
     if (mode == FormMode::DETAIL) {
-        saveButton->setDisabled(true);
+        selectImageButton->setDisabled(true);
     }
 
     // Collega il pulsante alla funzione di selezione dell'immagine
