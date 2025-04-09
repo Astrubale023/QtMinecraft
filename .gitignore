@@ -1,2 +1,6 @@
 # Ignora la cartella di build
 build/
+
+# Altri file
+.qmake.stash
+Makefile
