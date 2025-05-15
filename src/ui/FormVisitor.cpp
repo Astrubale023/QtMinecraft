@@ -146,9 +146,7 @@ void FormVisitor::visit(const OreBlock &oreBlock) {
 void FormVisitor::onSave() {
     if (!currentObj || mode == FormMode::DETAIL) return;
 
-    MinecraftObj* newObj = currentObj->clone();
-
-    newObj->setNome(getLineEditValue("name").toStdString());
+    currentObj->setNome(getLineEditValue("name").toStdString());
 
     // Controlla se è stata selezionata un'immagine
     auto it = fields.find("imagePath");
@@ -156,20 +154,20 @@ void FormVisitor::onSave() {
         QLabel *imageLabel = dynamic_cast<QLabel*>(it.value());
         if (imageLabel) {
             QString imagePath = imageLabel->text();
-            newObj->setImage(imagePath.toStdString()); // Salviamo il percorso nell'oggetto
+            currentObj->setImage(imagePath.toStdString()); // Salviamo il percorso nell'oggetto
         }
     }
 
-    if (auto* item = dynamic_cast<Item*>(newObj)) {
+    if (auto* item = dynamic_cast<Item*>(currentObj)) {
         item->setStackable(getComboBoxValue("stackable"));
     }
-    if (auto* block = dynamic_cast<Block*>(newObj)) {
+    if (auto* block = dynamic_cast<Block*>(currentObj)) {
         block->setHardness(getSpinBoxValue("hardness"));
     }
-    if (auto* material = dynamic_cast<Material*>(newObj)) {
+    if (auto* material = dynamic_cast<Material*>(currentObj)) {
         material->setRarity(static_cast<Rarity>(getComboBoxValue("rarity")));
     }
-    if (auto* weapon = dynamic_cast<Weapon*>(newObj)) {
+    if (auto* weapon = dynamic_cast<Weapon*>(currentObj)) {
         weapon->setDamage(getSpinBoxValue("damage"));
 
         QList<Material*> materials = libraryManager->getMaterials();
@@ -181,10 +179,10 @@ void FormVisitor::onSave() {
             weapon->setMaterial(nullptr); // Nessun materiale selezionato
         }
     }
-    if (auto* lightBlock = dynamic_cast<LightBlock*>(newObj)) {
+    if (auto* lightBlock = dynamic_cast<LightBlock*>(currentObj)) {
         lightBlock->setBrightness(getSpinBoxValue("brightness"));
     }
-    if (auto* oreBlock = dynamic_cast<OreBlock*>(newObj)) {
+    if (auto* oreBlock = dynamic_cast<OreBlock*>(currentObj)) {
         oreBlock->setMinDrop(getSpinBoxValue("minDrop"));
         oreBlock->setMaxDrop(getSpinBoxValue("maxDrop"));
 
@@ -199,10 +197,10 @@ void FormVisitor::onSave() {
     }
 
     if (mode == FormMode::ADD) {
-        libraryManager->addObject(newObj);
+        libraryManager->addObject(currentObj);
         emit objectAdded();
-    } else if (mode == FormMode::EDIT) {
-        libraryManager->updateObject(currentObj, newObj);
+    } 
+    else if (mode == FormMode::EDIT) {
         emit objectSaved();
     }
 
