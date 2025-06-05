@@ -7,7 +7,7 @@
     },
     {
         "damage": 4,
-        "imageName": "glider.png",
+        "imageName": "Diamond_Sword.png",
         "material_name": "",
         "name": "Piccione",
         "stackable": true,
