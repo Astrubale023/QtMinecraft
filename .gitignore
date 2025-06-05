@@ -1,6 +1,13 @@
 # Ignora la cartella di build
 build/
+.vscode/
 
 # Altri file
 .qmake.stash
 Makefile
+relazione/relazione.aux
+relazione/relazione.fdb_latexmk
+relazione/relazione.fls
+relazione/relazione.log
+relazione/relazione.out
+relazione/relazione.synctex.gz
