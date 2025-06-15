@@ -17,12 +17,10 @@ public:
 
     OreBlock* clone() const override;
 
-    // Getter
     Material* getMaterial() const;
     int getMaxDrop() const;
     int getMinDrop() const;
 
-    // Setter
     void setMaterial(Material* newMaterial);
     void setMaxDrop(const int& newMaxDrop);
     void setMinDrop(const int& newMinDrop);

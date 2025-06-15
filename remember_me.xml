@@ -1,11 +1,12 @@
 <MinecraftObjects>
-    <Material imageName="Iron_Ingot.png" rarity="Common" name="Ferrugipoli" stackable="true"/>
-    <Material imageName="Rocking.png" rarity="Common" name="Pietruzzolozzola" stackable="true"/>
-    <Block imageName="great_feather.png" hardness="6" name="Foghlia"/>
-    <Weapon material_name="" damage="4" imageName="glider.png" name="Piccione" stackable="true"/>
-    <Item imageName="Lantern-1.png" name="bob04" stackable="false"/>
-    <Weapon material_name="" damage="1" imageName="Mossy_Cobblestone.png" name="sboboz10" stackable="false"/>
-    <LightBlock lightColor="Red" imageName="Schermata del 2025-03-24 18-25-25.png" hardness="27" brightness="6" name="pinco Spallino"/>
-    <Material imageName="Diamond_Sword.png" rarity="Common" name="provola" stackable="true"/>
-    <Item imageName="Stick.png" name="robina" stackable="false"/>
+    <Material name="Ferrugipoli" imageName="Iron_Ingot.png" stackable="true" rarity="Common"/>
+    <Material name="Pietruzzolozzola" imageName="Rocking.png" stackable="true" rarity="Common"/>
+    <Block name="Foghliaa" imageName="great_feather.png" hardness="6"/>
+    <Weapon name="Piccione" imageName="glider.png" material_name="" damage="4" stackable="true"/>
+    <Item name="bob04" imageName="Lantern-1.png" stackable="false"/>
+    <Weapon name="sboboz10" imageName="Mossy_Cobblestone.png" material_name="" damage="1" stackable="false"/>
+    <LightBlock name="pinco Spallino" brightness="6" imageName="Schermata del 2025-03-24 18-25-25.png" hardness="27" lightColor="Red"/>
+    <Material name="provola" imageName="Diamond_Sword.png" stackable="true" rarity="Common"/>
+    <Item name="robina" imageName="Stick.png" stackable="false"/>
+    <Block name="Ultimo Test" imageName="unipd_logo.png" hardness="69"/>
 </MinecraftObjects>

@@ -16,9 +16,6 @@ private:
     Rarity rarity;
 
 public:
-    //static const Material IRON;
-    //static const Material GOLD;
-    //static const Material DIAMOND;
     static const Material DEFAULT_MAT;
 
     explicit Material(const std::string& nome = "", const std::string& imageName = "default.png", const bool& stackable=false, const Rarity& rarity=Rarity::COMMON);
@@ -30,10 +27,9 @@ public:
     void setRarity(Rarity r);
     void setRarity(int r);
 
-    // Funzione per ottenere la rarità come stringa
     static std::string rarityToString(const Rarity& rarita);
     static Rarity stringToRarity(const std::string& s);
-    static Rarity intToRarity(const int& r);
+    static Rarity intToRarity(const int& r);    // Come per lightblock probabilmente è evitabile
     
     void accept(MinecraftObjVisitor& visitor) const override;
 };

@@ -13,46 +13,42 @@
 #include "../logic/OreBlock.h"
 
 void CardVisitor::visit(const Item& item) {
-    createCard(QString::fromStdString(item.getNome() + " | Item"), QString::fromStdString("icons/"+item.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(item.getNome() + " | Item"), QString::fromStdString("icons/"+item.getImage()));
 }
 
 void CardVisitor::visit(const Material& material) {
-    createCard(QString::fromStdString(material.getNome() + " | Material"), QString::fromStdString("icons/"+material.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(material.getNome() + " | Material"), QString::fromStdString("icons/"+material.getImage()));
 }
 
 void CardVisitor::visit(const Weapon& weapon) {
-    createCard(QString::fromStdString(weapon.getNome() + " | Weapon"), QString::fromStdString("icons/"+weapon.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(weapon.getNome() + " | Weapon"), QString::fromStdString("icons/"+weapon.getImage()));
 }
 
 void CardVisitor::visit(const Block& block) {
-    createCard(QString::fromStdString(block.getNome() + " | Block"), QString::fromStdString("icons/"+block.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(block.getNome() + " | Block"), QString::fromStdString("icons/"+block.getImage()));
 }
 
 void CardVisitor::visit(const LightBlock& lightBlock) {
-    createCard(QString::fromStdString(lightBlock.getNome() + " | LightBlock"), QString::fromStdString("icons/"+lightBlock.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(lightBlock.getNome() + " | LightBlock"), QString::fromStdString("icons/"+lightBlock.getImage()));
 }
 
 void CardVisitor::visit(const OreBlock& oreBlock) {
-    createCard(QString::fromStdString(oreBlock.getNome() + " | OreBlock"), QString::fromStdString("icons/"+oreBlock.getImage()));  // Usa riferimento
+    createCard(QString::fromStdString(oreBlock.getNome() + " | OreBlock"), QString::fromStdString("icons/"+oreBlock.getImage()));
 }
 
 void CardVisitor::createCard(const QString& name, const QString& imagePath) {
     cardWidget = new QWidget();
-    cardWidget->setObjectName("card");  // identificativo
+    cardWidget->setObjectName("card");
     QVBoxLayout *layout = new QVBoxLayout(cardWidget);
 
-    // Aggiungi solo il bordo alla card principale
     cardWidget->setStyleSheet("#card { border: 2px solid black; border-radius: 10px; padding: 5px; }");
 
-    // Immagine
     QLabel *imageLabel = new QLabel();
     QPixmap pixmap(imagePath);
     imageLabel->setPixmap(pixmap.scaled(128, 128, Qt::KeepAspectRatio));
 
-    // Nome
     QLabel *nameLabel = new QLabel(name);
 
-    // Pulsanti
     viewBtn = new QPushButton();
     viewBtn->setIcon(QIcon::fromTheme("view-preview", QIcon("icons/occhio_di_sauron.png")));
     editBtn = new QPushButton();
@@ -65,13 +61,9 @@ void CardVisitor::createCard(const QString& name, const QString& imagePath) {
     btnLayout->addWidget(editBtn);
     btnLayout->addWidget(deleteBtn);
 
-    // Aggiungi i widget al layout
     layout->addWidget(imageLabel, 0, Qt::AlignCenter);
     layout->addWidget(nameLabel, 0, Qt::AlignCenter);
     layout->addLayout(btnLayout, Qt::AlignRight);
-    // layout->addWidget(viewBtn);
-    // layout->addWidget(editBtn);
-    // layout->addWidget(deleteBtn);
 }
 
 QWidget* CardVisitor::getCardWidget() {

@@ -19,21 +19,20 @@ public:
     explicit ListView(LibraryManager *libraryManager, QWidget *parent = nullptr);
 
 signals:
-    void viewItem(MinecraftObj* obj);  // Segnale per mostrare i dettagli
-    void editItem(MinecraftObj* obj);  // Segnale per modificare un oggetto
-    void addItem(MinecraftObj* tempObj); // Segnale per aggiungere un nuovo oggetto
+    void viewItem(MinecraftObj* obj);
+    void editItem(MinecraftObj* obj);
+    void addItem(MinecraftObj* tempObj);
 
 public slots:
-    void onRefreshClicked(); // Aggiorna la lista
-    void onSearchTextChanged(); // Filtra gli elementi in base alla barra di ricerca
+    void onRefreshClicked();
+    void onSearchTextChanged();
 
 protected:
-    void resizeEvent(QResizeEvent *event) override; // Adatta la griglia alla finestra
+    void resizeEvent(QResizeEvent *event) override;
 
 private:
     LibraryManager *libraryManager;
     
-    // UI Components
     QLineEdit *searchBar;
     QPushButton *refreshButton;
     QPushButton *addButton;
@@ -43,11 +42,10 @@ private:
     
     int columnCount;
 
-    // Metodi privati
-    void populateList(const QString& filter = ""); // Carica gli oggetti nella lista
-    void adjustGridLayout(); // Adatta la griglia in base alla dimensione della finestra
-    void onDeleteConfirmed(MinecraftObj* item); // Conferma ed elimina un oggetto
-    void onAddItemClicked(); // Mostra il form per aggiungere un oggetto
+    void populateList(const QString& filter = "");
+    void adjustGridLayout();
+    void onDeleteConfirmed(MinecraftObj* item);
+    void onAddItemClicked();
 };
 
 #endif // LISTVIEW_H

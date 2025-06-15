@@ -1,6 +1,7 @@
 #include "Material.h"
 #include "MinecraftObjVisitor.h"
 
+// Possibili materiali di default
 //const Material Material::IRON("Iron", true, Rarity::COMMON);
 //const Material Material::GOLD("Gold", true, Rarity::RARE);
 //const Material Material::DIAMOND("Diamond", true, Rarity::EPIC);

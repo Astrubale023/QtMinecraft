@@ -10,17 +10,15 @@ private:
     int damage;
     Material* material;
 
-public://qui const_cast perchè dereferenziondo DEFAULT_MAT mi da un puntatore a const e a noi conveniva così
+public:
     Weapon(const std::string& nome = "", const std::string& imageName = "default.png", const bool& stackable=false, const int& damage = 0, Material* material = nullptr);
     ~Weapon() override = default;
 
     Weapon* clone() const override;
 
-    // Getter
     int getDamage() const;
     Material* getMaterial() const;
 
-    // Setter
     void setDamage(int damage);
     void setMaterial(Material* newMaterial);
     

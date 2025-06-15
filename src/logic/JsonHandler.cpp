@@ -15,8 +15,8 @@ void JsonHandler::saveObjectsToFile(const QString& filename, const QList<Minecra
     JsonVisitor visitor;
 
     for (MinecraftObj* obj : objects) {
-        obj->accept(visitor);  // Serializza l'oggetto
-        jsonArray.append(visitor.getJsonObject());  // Aggiunge l'oggetto serializzato
+        obj->accept(visitor);
+        jsonArray.append(visitor.getJsonObject());
     }
 
     QJsonDocument doc(jsonArray);
@@ -41,17 +41,15 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
     QJsonDocument doc = QJsonDocument::fromJson(data);
     QJsonArray jsonArray = doc.array();
 
-    // Carica prima tutti i materiali e aggiungili alla QList principale
+    // Carica prima tutti i materiali
     QList<Material*> materials;
     for (const QJsonValue& value : jsonArray) {
         QJsonObject obj = value.toObject();
 
-        // Se incontriamo un oggetto "material", lo aggiungiamo alla lista
         if (obj.contains("type") && obj["type"] == "Material") {
             QString materialName = obj["name"].toString();
             bool materialExists = false;
             
-            // Verifica se il materiale è già nella lista
             for (Material* mat : materials) {
                 if (mat && mat->getNome() == materialName.toStdString()) {
                     materialExists = true;
@@ -59,7 +57,6 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
                 }
             }
 
-            // Se il materiale non esiste già, lo creiamo e lo aggiungiamo alla lista
             if (!materialExists) {
                 QString img = obj["imageName"].toString();
                 Rarity rarity = Material::intToRarity(obj["rarity"].toInt());
@@ -69,7 +66,7 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
         }
     }
 
-    // Poi carica gli oggetti (Weapon, Item, Block, etc.)
+    // Carica gli altri oggetti
     for (const QJsonValue& value : jsonArray) {
         QJsonObject obj = value.toObject();
         QString type = obj["type"].toString();
@@ -77,12 +74,10 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
         QString img = obj["imageName"].toString();
 
         if (type == "Item") {
-            // Se è un Item, lo ricostruiamo
             bool stackable = obj["stackable"].toBool();
             Item* item = new Item(name.toStdString(), img.toStdString(), stackable);
             objects.append(item);
         } else if (type == "Material") {
-            // Verifica se il materiale è già nella lista
             for (Material* mat : materials) {
                 if (mat && mat->getNome() == name.toStdString()) {
                     objects.append(mat);
@@ -92,11 +87,9 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
         } else if (type == "Weapon") {
             int damage = obj["damage"].toInt();
             bool stackable = obj["stackable"].toBool();
-            // Se è una Weapon, recuperiamo il materiale dalla lista
             QString materialName = obj["material_name"].toString();
             Material* material = nullptr;
 
-            // Cerca il materiale nella lista
             for (Material* mat : materials) {
                 if (mat && mat->getNome() == materialName.toStdString()) {
                     material = mat;
@@ -107,24 +100,21 @@ void JsonHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftOb
             if (material != nullptr) {
                 Weapon* weapon = new Weapon(name.toStdString(), img.toStdString(), stackable, damage, material);
                 objects.append(weapon);
-            } else {    // non ha trovato il materiale e allora me lo mette lui a deafult
+            } else {
                 Weapon* weapon = new Weapon(name.toStdString(), img.toStdString(), stackable, damage);
                 objects.append(weapon);
             }
         } else if (type == "Block") {
-            // Se è un Block, lo ricostruiamo
             int hardness = obj["hardness"].toInt();
             Block* block = new Block(name.toStdString(), img.toStdString(), hardness);
             objects.append(block);
         } else if (type == "OreBlock") {
-            // Se è un OreBlock, lo ricostruiamo
             int hardness = obj["hardness"].toInt();
             int minDrop = obj["minDrop"].toInt();
             int maxDrop = obj["maxDrop"].toInt();
             QString materialName = obj["materialName"].toString();
             Material* material = nullptr;
 
-            // Cerca il materiale nella lista
             for (Material* mat : materials) {
                 if (mat && mat->getNome() == materialName.toStdString()) {
                     material = mat;

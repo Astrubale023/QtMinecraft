@@ -1,10 +1,7 @@
 #include "XmlHandler.h"
 
-//#include <QDomDocument>
-//#include <QDomElement>
 #include <QFile>
 #include <QTextStream>
-//#include <QDomNodeList>
 #include <QString>
 #include "Item.h"
 #include "Material.h"
@@ -21,14 +18,14 @@ void XmlHandler::saveObjectsToFile(const QString& filename, const QList<Minecraf
     XmlVisitor visitor;
 
     for (MinecraftObj* obj : objects) {
-        obj->accept(visitor);  // Serializza l'oggetto
-        root.appendChild(visitor.getXmlElement());  // Aggiunge l'elemento XML alla radice
+        obj->accept(visitor); 
+        root.appendChild(visitor.getXmlElement());
     }
 
     QFile file(filename);
     if (file.open(QIODevice::WriteOnly)) {
         QTextStream stream(&file);
-        stream << doc.toString(4);  // Indentazione per leggibilità
+        stream << doc.toString(4);
         file.close();
     } else {
         qWarning("Couldn't open file for writing");
@@ -78,7 +75,7 @@ void XmlHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftObj
         }
     }
 
-    // Carica gli altri oggetti (Weapon, Item, Block, etc.)
+    // Carica gli altri oggetti
     for (int i = 0; i < elements.size(); ++i) {
         QDomElement elem = elements.at(i).toElement();
         QString type = elem.tagName();
@@ -90,7 +87,6 @@ void XmlHandler::loadObjectsFromFile(const QString& filename, QList<MinecraftObj
             Item* item = new Item(name.toStdString(), img.toStdString(), stackable);
             objects.append(item);
         } else if (type == "Material") {
-            // Verifica se il materiale è già nella lista
             for (Material* mat : materials) {
                 if (mat && mat->getNome() == name.toStdString()) {
                     objects.append(mat);

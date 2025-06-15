@@ -8,22 +8,21 @@
 
 class CardVisitor : public MinecraftObjVisitor {
 public:
-    void visit(const Item& item) override;   // Modificato per prendere riferimenti
-    void visit(const Material& material) override;  // Modificato per prendere riferimenti
-    void visit(const Weapon& weapon) override;  // Modificato per prendere riferimenti
-    void visit(const Block& block) override;  // Modificato per prendere riferimenti
-    void visit(const OreBlock& block) override;  // Modificato per prendere riferimenti
-    void visit(const LightBlock& block) override;  // Modificato per prendere riferimenti
+    void visit(const Item& item) override;
+    void visit(const Material& material) override;
+    void visit(const Weapon& weapon) override;
+    void visit(const Block& block) override;
+    void visit(const OreBlock& block) override;
+    void visit(const LightBlock& block) override;
 
-    QWidget* getCardWidget(); // Ritorna il widget della card generata
+    QWidget* getCardWidget();
 
-    // Getter per i bottoni
     QPushButton* getViewButton() const;
     QPushButton* getEditButton() const;
     QPushButton* getDeleteButton() const;
 
 private:
-    QWidget *cardWidget; // Widget che rappresenta la card
+    QWidget *cardWidget;
 
     QPushButton *viewBtn;
     QPushButton *editBtn;

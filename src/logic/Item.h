@@ -14,10 +14,8 @@ public:
 
     Item* clone() const override;
 
-    // Getter
     bool isStackable() const;
 
-    // Setter
     void setStackable(bool newStackable);
     
     void accept(MinecraftObjVisitor& visitor) const override;

@@ -10,14 +10,12 @@ MainWindow::MainWindow(LibraryManager *libraryManager, QWidget *parent)
 
     stackedWidget = new QStackedWidget(this);
 
-    // Creazione della ListView
     listView = new ListView(libraryManager, this);
     stackedWidget->addWidget(listView);
 
     setCentralWidget(stackedWidget);
     createMenuBar();
 
-    // Collegamenti segnali-slot
     connect(listView, &ListView::viewItem, this, [this](MinecraftObj* obj) {
         showFormView(obj, FormVisitor::FormMode::DETAIL);
     });
@@ -44,12 +42,10 @@ void MainWindow::createMenuBar() {
     fileMenu->addAction(saveAction);
     fileMenu->addAction(loadAction);
 
-    // Aggiunta delle shortcut
     saveAction->setShortcut(QKeySequence("Ctrl+S"));
     loadAction->setShortcut(QKeySequence("Ctrl+O"));
 
     connect(saveAction, &QAction::triggered, this, [this]() {
-        // Chiede all'utente se vuole salvare in JSON o XML
         QString fileName = QFileDialog::getSaveFileName(this, "Salva come", "", "JSON e XML (*.json *.xml)");
         if (!fileName.isEmpty()) {
             if (fileName.endsWith(".json"))
@@ -85,19 +81,16 @@ void MainWindow::showFormView(MinecraftObj* obj, const FormVisitor::FormMode& mo
         currentFormView = nullptr;
     }
 
-    // Creiamo un nuovo FormVisitor passando il LibraryManager
     FormVisitor *formVisitor = new FormVisitor(mode, libraryManager);
 
     if (obj) {
-        formVisitor->buildForm(obj); // CORRETTO: Usa buildForm() invece di obj->accept()
+        formVisitor->buildForm(obj);
     }
 
-    // Prendi il widget del form e aggiungilo alla stackedWidget
     currentFormView = formVisitor->getFormWidget();
     stackedWidget->addWidget(currentFormView);
     stackedWidget->setCurrentWidget(currentFormView);
 
-    // Collegare i segnali per gestire il salvataggio e il ritorno alla lista
     connect(formVisitor, &FormVisitor::objectSaved, this, [this]() {
         showListView();
     });

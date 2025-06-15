@@ -10,23 +10,23 @@
 
 MinecraftObj* ObjectFactory::createTemporaryObject(const QString& type) {
     if (type == "Item") {
-        return new Item();  // Nome di default, non impilabile
+        return new Item();
     } 
     else if (type == "Material") {
         return new Material();
     }
     else if (type == "Weapon") {
-        return new Weapon();  // Nome, danno, durata
+        return new Weapon();
     }
     else if (type == "Block") {
-        return new Block();  // Nome di default, durezza 10
+        return new Block();
     } 
     else if (type == "OreBlock") {
-        return new OreBlock();  // Nome, durezza, drop min/max
+        return new OreBlock();
     } 
     else if (type == "LightBlock") {
         return new LightBlock();
     } 
 
-    return nullptr;  // Tipo non riconosciuto
+    return nullptr;
 }

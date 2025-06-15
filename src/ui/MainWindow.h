@@ -17,7 +17,7 @@ public:
 
 private slots:
     void showListView();
-    void showFormView(MinecraftObj* obj, const FormVisitor::FormMode& mode);    // obj deve essere const
+    void showFormView(MinecraftObj* obj, const FormVisitor::FormMode& mode);
     void saveFile(const Format& format, const QString& fileName) const;
     void loadFile(const Format& format, const QString& fileName);
 
@@ -28,7 +28,7 @@ private:
     LibraryManager *libraryManager;
     QStackedWidget *stackedWidget;
     ListView *listView;
-    QWidget *currentFormView;  // Widget generato dinamicamente dal FormVisitor
+    QWidget *currentFormView;
 };
 
 #endif // MAINWINDOW_H

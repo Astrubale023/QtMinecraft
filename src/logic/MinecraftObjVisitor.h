@@ -1,12 +1,6 @@
 #ifndef MINECRAFTOBJVISITOR_H
 #define MINECRAFTOBJVISITOR_H
 
-// #include "Item.h"
-// #include "Material.h"
-// #include "Weapon.h"
-// #include "Block.h"
-// #include "OreBlock.h"
-// #include "LightBlock.h"
 class Item;
 class Material;
 class Weapon;

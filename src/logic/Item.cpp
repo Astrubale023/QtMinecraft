@@ -9,12 +9,10 @@ Item* Item::clone() const {
     return new Item(*this);
 }
 
-// Getter
 bool Item::isStackable() const {
     return stackable;
 }
 
-// Setter
 void Item::setStackable(bool newStackable) {
     stackable = newStackable;
 }

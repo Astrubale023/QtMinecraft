@@ -6,7 +6,7 @@
 LibraryManager::LibraryManager() {}
 
 LibraryManager::~LibraryManager() {
-    qDeleteAll(objects);  // Dealloca tutti gli oggetti nella lista
+    qDeleteAll(objects);
     objects.clear();
 }
 
@@ -16,17 +16,9 @@ void LibraryManager::addObject(MinecraftObj* obj) {
     }
 }
 
-void LibraryManager::updateObject(const MinecraftObj* oldObj, MinecraftObj* newObj) {
-    int index = objects.indexOf(oldObj);
-    if (index != -1 && newObj) {
-        delete objects[index];  // Cancella il vecchio oggetto
-        objects[index] = newObj;  // Sostituisco con quello nuovo
-    }
-}
-
 void LibraryManager::deleteObject(const MinecraftObj* obj) {
     if (objects.removeOne(obj)) {
-        delete obj;  // Cancella l'oggetto dalla memoria
+        delete obj;
     }
 }
 
@@ -37,7 +29,7 @@ const QList<MinecraftObj*>& LibraryManager::getObjects() const {
 const QList<Material*> LibraryManager::getMaterials() const {
     QList<Material*> materialsList;
 
-    for (MinecraftObj* obj : objects) { // Supponiamo che 'objects' contenga tutti gli oggetti
+    for (MinecraftObj* obj : objects) {
         if (Material* material = dynamic_cast<Material*>(obj)) {
             materialsList.append(material);
         }
@@ -66,7 +58,7 @@ void LibraryManager::saveToJson(const QString& filename) const {
 }
 
 void LibraryManager::loadFromJson(const QString& filename) {
-    qDeleteAll(objects);  // Libera la memoria degli oggetti precedenti
+    qDeleteAll(objects);
     objects.clear();
     JsonHandler::loadObjectsFromFile(filename, objects);
 }
@@ -76,7 +68,7 @@ void LibraryManager::saveToXML(const QString& filename) const {
 }
 
 void LibraryManager::loadFromXML(const QString& filename) {
-    qDeleteAll(objects);  // Libera la memoria degli oggetti precedenti
+    qDeleteAll(objects);
     objects.clear();
     XmlHandler::loadObjectsFromFile(filename, objects);
 }

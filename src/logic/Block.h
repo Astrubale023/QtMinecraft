@@ -14,10 +14,8 @@ public:
 
     Block* clone() const override;
 
-    // Getter
     int getHardness() const;
 
-    // Setter
     void setHardness(int newHardness);
     
     void accept(MinecraftObjVisitor& visitor) const override;

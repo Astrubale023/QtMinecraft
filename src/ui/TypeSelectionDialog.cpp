@@ -5,7 +5,7 @@ TypeSelectionDialog::TypeSelectionDialog(QWidget* parent) : QDialog(parent) {
     setWindowTitle("Seleziona Tipo Oggetto");
 
     typeComboBox = new QComboBox(this);
-    typeComboBox->addItems({"Item", "Material", "Weapon", "Block", "OreBlock", "LightBlock"});  // Aggiungi qui i tipi disponibili
+    typeComboBox->addItems({"Item", "Material", "Weapon", "Block", "OreBlock", "LightBlock"});
 
     okButton = new QPushButton("OK", this);
     cancelButton = new QPushButton("Annulla", this);
@@ -25,5 +25,5 @@ QString TypeSelectionDialog::getSelectedType() const {
 
 void TypeSelectionDialog::onOkClicked() {
     selectedType = typeComboBox->currentText();
-    accept();  // Chiude il dialogo con stato "Accepted"
+    accept();
 }
