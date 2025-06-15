@@ -50,7 +50,7 @@ void CardVisitor::createCard(const QString& name, const QString& imagePath) {
     QLabel *nameLabel = new QLabel(name);
 
     viewBtn = new QPushButton();
-    viewBtn->setIcon(QIcon::fromTheme("view-preview", QIcon("icons/occhio_di_sauron.png")));
+    viewBtn->setIcon(QIcon::fromTheme("dialog-information", QIcon("icons/occhio_di_sauron.png")));
     editBtn = new QPushButton();
     editBtn->setIcon(QIcon::fromTheme("document-edit", QIcon("icons/matitonzola.png")));
     deleteBtn = new QPushButton();
