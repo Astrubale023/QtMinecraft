@@ -10,15 +10,13 @@
 #include "../logic/ObjectFactory.h"
 
 ListView::ListView(LibraryManager *libraryManager, QWidget *parent)
-    : QWidget(parent), libraryManager(libraryManager), columnCount(3) { // Inizialmente 3 colonne
+    : QWidget(parent), libraryManager(libraryManager), columnCount(3) {
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
-    // Barra di ricerca e pulsanti in alto
     QHBoxLayout *topLayout = new QHBoxLayout();
     searchBar = new QLineEdit(this);
     refreshButton = new QPushButton("Aggiorna", this);
-    //refreshButton->setIcon(style()->standardIcon(QStyle::SP_BrowserReload));
     addButton = new QPushButton(this);
     addButton->setIcon(QIcon::fromTheme("list-add"));
 
@@ -27,36 +25,31 @@ ListView::ListView(LibraryManager *libraryManager, QWidget *parent)
     topLayout->addWidget(addButton);
     mainLayout->addLayout(topLayout);
 
-    // Area scrollabile per le card
     scrollArea = new QScrollArea(this);
     scrollArea->setWidgetResizable(true);
 
     scrollWidget = new QWidget();
-    cardLayout = new QGridLayout(); // Usa un QGridLayout per disporre le card a griglia
+    cardLayout = new QGridLayout();
     cardLayout->setSpacing(10);
     scrollWidget->setLayout(cardLayout);
 
     scrollArea->setWidget(scrollWidget);
     mainLayout->addWidget(scrollArea);
 
-    // Collegamenti segnali-slot
     connect(searchBar, &QLineEdit::textChanged, this, &ListView::onSearchTextChanged);
     connect(refreshButton, &QPushButton::clicked, this, &ListView::onRefreshClicked);
     connect(addButton, &QPushButton::clicked, this, &ListView::onAddItemClicked);
 
-    // Caricamento iniziale della lista
     populateList();
 }
 
 void ListView::populateList(const QString& filter) {
-    // Pulizia layout
     QLayoutItem *child;
     while ((child = cardLayout->takeAt(0)) != nullptr) {
         delete child->widget();
         delete child;
     }
 
-    // Recupera la lista filtrata
     QList<MinecraftObj*> objects = filter.isEmpty() ? 
         libraryManager->getObjects() : 
         libraryManager->filterObjectsByName(filter);
@@ -67,7 +60,6 @@ void ListView::populateList(const QString& filter) {
         obj->accept(visitor);
         QWidget *card = visitor.getCardWidget();
 
-        // Connessione pulsanti della card ai segnali di ListView
         connect(visitor.getViewButton(), &QPushButton::clicked, [this, obj]() {
             emit viewItem(obj);
         });
@@ -80,7 +72,6 @@ void ListView::populateList(const QString& filter) {
             onDeleteConfirmed(obj);
         });
 
-        // Aggiungi la card alla griglia
         cardLayout->addWidget(card, row, col);
         col++;
         if (col >= columnCount) {
@@ -104,7 +95,7 @@ void ListView::onDeleteConfirmed(MinecraftObj* item) {
 
     if (reply == QMessageBox::Yes) {
         libraryManager->deleteObject(item);
-        populateList(searchBar->text()); // Ricarica la lista
+        populateList(searchBar->text());
     }
 }
 
@@ -115,14 +106,12 @@ void ListView::onRefreshClicked() {
 
 void ListView::onAddItemClicked() {
     TypeSelectionDialog typeDialog;
-    if (typeDialog.exec() == QDialog::Accepted) {  // L'utente ha scelto un tipo
+    if (typeDialog.exec() == QDialog::Accepted) {
         QString selectedType = typeDialog.getSelectedType();
 
-        // Creiamo l'oggetto temporaneo
         MinecraftObj* tempObj = ObjectFactory::createTemporaryObject(selectedType);
 
         if (tempObj) {
-            // Informiamo la MainWindow di cambiare pagina e mostrare il form
             emit addItem(tempObj);
         }
     }
@@ -130,16 +119,16 @@ void ListView::onAddItemClicked() {
 
 void ListView::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
-    adjustGridLayout(); // Adatta la griglia quando cambia la dimensione della finestra
+    adjustGridLayout();
 }
 
 void ListView::adjustGridLayout() {
     int width = scrollArea->viewport()->width();
-    int cardWidth = 250; // Larghezza approssimativa di una card
-    int newColumnCount = std::max(1, width / cardWidth); // Calcola il numero di colonne
+    int cardWidth = 250;
+    int newColumnCount = std::max(1, width / cardWidth);
 
     if (newColumnCount != columnCount) {
         columnCount = newColumnCount;
-        populateList(searchBar->text()); // Ricarica la lista con il nuovo numero di colonne
+        populateList(searchBar->text());
     }
 }
