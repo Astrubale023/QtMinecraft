@@ -1,37 +1,79 @@
 [
     {
-        "hardness": 6,
-        "imageName": "great_feather.png",
-        "name": "Foghlia",
-        "type": "Block"
-    },
-    {
-        "damage": 4,
-        "imageName": "Diamond_Sword.png",
-        "material_name": "",
-        "name": "Piccione",
-        "stackable": true,
-        "type": "Weapon"
-    },
-    {
-        "imageName": "Lantern-1.png",
-        "name": "bob404",
+        "imageName": "Music_Disc_13.png",
+        "name": "Music Disc 13",
         "stackable": false,
         "type": "Item"
     },
     {
-        "damage": 1,
-        "imageName": "Mossy_Cobblestone.png",
-        "material_name": "Ferrugipoli",
-        "name": "sboboz10",
+        "imageName": "Snowball.png",
+        "name": "Snowball",
+        "stackable": false,
+        "type": "Item"
+    },
+    {
+        "imageName": "Stick.png",
+        "name": "Stick",
+        "stackable": true,
+        "type": "Item"
+    },
+    {
+        "imageName": "Iron_Ingot.png",
+        "name": "Iron Ingot",
+        "rariry": "Rare",
+        "stackable": true,
+        "type": "Material"
+    },
+    {
+        "imageName": "Oak_Planks.png",
+        "name": "Oak Planks",
+        "rariry": "Common",
+        "stackable": true,
+        "type": "Material"
+    },
+    {
+        "damage": 6,
+        "imageName": "Wooden_Pickaxe.png",
+        "material_name": "Oak Planks",
+        "name": "Wooden Pickaxe",
         "stackable": false,
         "type": "Weapon"
     },
     {
-        "imageName": "Iron_Ingot.png",
-        "name": "Ferrugipoli",
-        "rariry": "Common",
-        "stackable": true,
-        "type": "Material"
+        "hardness": 15,
+        "imageName": "Mossy_Cobblestone.png",
+        "name": "Mossy Coblestone",
+        "type": "Block"
+    },
+    {
+        "hardness": 13,
+        "imageName": "Oak_Planks.png",
+        "name": "Oak Planks",
+        "type": "Block"
+    },
+    {
+        "hardness": 27,
+        "imageName": "Deepslate_Iron_Ore.png",
+        "material_name": "Iron Ingot",
+        "maxDrop": 4,
+        "minDrop": 2,
+        "name": "",
+        "type": "OreBlock"
+    },
+    {
+        "brightness": 10,
+        "hardness": 10,
+        "imageName": "Lantern.png",
+        "lightColor": "Green",
+        "name": "Lantern",
+        "type": "LightBlock"
+    },
+    {
+        "brightness": 7,
+        "hardness": 4,
+        "imageName": "Redstone_Lamp.png",
+        "lightColor": "Green",
+        "name": "Redstone Lamp",
+        "type": "LightBlock"
     }
 ]

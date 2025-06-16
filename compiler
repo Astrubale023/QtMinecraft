@@ -1,26 +1,18 @@
 #!/bin/bash
 
-# Genera il progetto base
 qmake -project
 
-# Modifica il .pro per includere i moduli Qt e specificare output personalizzati
 sed -i 's/^TARGET = .*/TARGET = MinecraftModManager/' QtMinecraft.pro
 sed -i "7a QT += widgets gui core xml" QtMinecraft.pro
 
-# Cartelle personalizzate per file generati
 mkdir -p build/obj build/moc build/ui
 
-# Aggiungi istruzioni al .pro per indirizzare i file generati
 echo "OBJECTS_DIR = build/obj" >> QtMinecraft.pro
 echo "MOC_DIR = build/moc" >> QtMinecraft.pro
-echo "UI_DIR = build/ui" >> QtMinecraft.pro
-# echo "RCC_DIR = build/rcc" >> QtMinecraft.pro  # opzionale
 
-# Rigenera Makefile con le nuove impostazioni
 qmake
 
-# Compila
 make
-if [ $? -eq 0 ]; then
-    clear
-fi
+#if [ $? -eq 0 ]; then
+#    clear
+#fi

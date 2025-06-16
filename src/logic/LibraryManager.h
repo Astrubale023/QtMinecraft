@@ -14,7 +14,6 @@ public:
     ~LibraryManager();
 
     void addObject(MinecraftObj* obj);
-    void updateObject(const MinecraftObj* oldObj, MinecraftObj* newObj);
     void deleteObject(const MinecraftObj* obj);
 
     const QList<MinecraftObj*>& getObjects() const;

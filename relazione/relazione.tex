@@ -1,4 +1,5 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[12pt]{article}
+\usepackage[a4paper, top=2.54cm, bottom=2.54cm, left=3.18cm, right=3.18cm]{geometry}
 \usepackage{float}
 \usepackage[most]{tcolorbox}
 \usepackage[utf8]{inputenc}
@@ -48,6 +49,7 @@ Ho scelto questo tema perché lo considero un progetto originale, inoltre il sof
 Il progetto si divide in due macro-parti: il modello logico e l'interfaccia grafica.  
 La prima è indipendente dalla seconda, ma non viceversa. Infatti, nel modello logico sono definite le classi che rappresentano gli oggetti del gioco, la loro gestione e le operazioni di salvataggio e caricamento.  
 L'interfaccia grafica, invece, si appoggia sul modello logico per visualizzare e rendere interattive le operazioni e le entità definite nella logica applicativa.
+Il diagramma UML \ref{fig:uml} rappresenta le parti più importanti del modello.
 
 \subsection{Modello Logico}
 
@@ -75,6 +77,13 @@ Un piccolo dettaglio tecnico riguarda il salvataggio delle immagini associate ag
 quando un'immagine viene caricata nel software, essa viene copiata e salvata all’interno della cartella del progetto, in modo da utilizzare un \textbf{percorso relativo}.  
 \end{tcolorbox}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{res/uml-lattico.png}
+    \caption{Diagramma UML del modello logico del progetto}
+    \label{fig:uml}
+\end{figure}
+
 \subsection{Interfaccia Grafica}
 
 La parte di interfaccia grafica (UI) ha il compito di esporre all’utente finale la logica applicativa e le funzionalità implementate, offrendo un’interazione più intuitiva rispetto a un’interfaccia da terminale.  
@@ -92,8 +101,7 @@ Come suggerisce il nome, \texttt{FormVisitor} utilizza il \textbf{design pattern
 È inoltre supportata da un’enumerazione che specifica in quale modalità operativa il form viene utilizzato (es. \texttt{View}, \texttt{Edit}, \texttt{Create}).
 
 Per motivi di praticità, l’implementazione di \texttt{FormVisitor} si discosta leggermente dall’approccio classico del pattern Visitor, poiché accetta anche un riferimento al \texttt{LibraryManager}.  
-Questo permette di gestire direttamente l’inserimento o l’aggiornamento degli oggetti, ad esempio al momento del salvataggio.  
-È probabile che questa logica si sarebbe potuta implementare anche tramite l’utilizzo dei segnali e slot offerti da Qt, rendendo la struttura più aderente al paradigma ad eventi e meno accoppiata, ma si è optato per una soluzione più diretta e funzionale nel contesto di sviluppo attuale.
+Questo permette di gestire direttamente l’inserimento o l’aggiornamento degli oggetti, ad esempio al momento del salvataggio. Si è quindi optato per una soluzione più diretta e funzionale.
 
 \section{Polimorfismo}
 \label{sec:polimorfismo}

@@ -1,12 +1,14 @@
 <MinecraftObjects>
-    <Material name="Ferrugipoli" imageName="Iron_Ingot.png" stackable="true" rarity="Common"/>
-    <Material name="Pietruzzolozzola" imageName="Rocking.png" stackable="true" rarity="Common"/>
-    <Block name="Foghliaa" imageName="great_feather.png" hardness="6"/>
-    <Weapon name="Piccione" imageName="glider.png" material_name="" damage="4" stackable="true"/>
-    <Item name="bob04" imageName="Lantern-1.png" stackable="false"/>
-    <Weapon name="sboboz10" imageName="Mossy_Cobblestone.png" material_name="" damage="1" stackable="false"/>
-    <LightBlock name="pinco Spallino" brightness="6" imageName="Schermata del 2025-03-24 18-25-25.png" hardness="27" lightColor="Red"/>
-    <Material name="provola" imageName="Diamond_Sword.png" stackable="true" rarity="Common"/>
-    <Item name="robina" imageName="Stick.png" stackable="false"/>
-    <Block name="Ultimo Test" imageName="unipd_logo.png" hardness="69"/>
+    <Item imageName="Cooked_Porkchop.png" name="Cooked Porkchop" stackable="true"/>
+    <Item imageName="Ink_Sac.png" name="Ink Sac" stackable="true"/>
+    <Item imageName="Music_Disc_13.png" name="Music Disc 13" stackable="false"/>
+    <Block imageName="Cobblestone.png" name="Cobblestone" hardness="10"/>
+    <Block imageName="Lodestone.png" name="Loadstone" hardness="5"/>
+    <Material rarity="Leggendary" imageName="Diamond.png" name="Diamond" stackable="false"/>
+    <Material rarity="Epic" imageName="Gold_Ingot.png" name="Gold Ingot" stackable="true"/>
+    <Weapon damage="20" material_name="Diamond" imageName="Diamond_Sword.png" name="Diamond Sword" stackable="false"/>
+    <Weapon damage="40" material_name="" imageName="Mace.png" name="Mace" stackable="false"/>
+    <LightBlock lightColor="Green" imageName="Daylight_Detector.png" name="Daylight Detector" hardness="2" brightness="2"/>
+    <LightBlock lightColor="Green" imageName="Glowstone.png" name="Glowstone" hardness="5" brightness="25"/>
+    <OreBlock maxDrop="2" minDrop="1" material_name="Diamond" imageName="Diamond_Ore.png" name="Diamond Ore" hardness="30"/>
 </MinecraftObjects>
